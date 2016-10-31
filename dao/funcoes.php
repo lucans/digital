@@ -1,6 +1,7 @@
 <?php
 
-$link = mysqli_connect("localhost","root","","db_digitalgit");
+// $link = mysqli_connect("localhost","root","","db_digitalgit");
+$link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 
 // mysqli_select_db($link, "db_lucas");
 

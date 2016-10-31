@@ -15,7 +15,6 @@ else if($_GET['p'] == 'inputCaderno'){
 	inputCaderno($oRequestInfo->oParametros);
 }
 else if($_GET['p'] == 'updateCaderno'){
-	
 	updateCaderno($oRequestInfo->oParametros);
 }
 else if($_GET['p'] == 'inputUser'){

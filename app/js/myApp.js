@@ -202,7 +202,14 @@
         };
 
         $scope.updateCaderno = function(oCaderno){
-            InputData.send('updateCaderno', oCaderno);            
+            // InputData.send('updateCaderno', oCaderno);      
+            $scope.p = 'updateCaderno';
+
+            $http.get("dao/add.php?p="+$s.p"&q="+oCaderno).success(function(result) {            
+                $scope.cadernos = result;
+            });
+            
+            return $scope.cadernos;
         };
 
         $scope.inputCaderno = function(oCaderno){

@@ -20,5 +20,13 @@
 
 		}
 
+		public function updateCaderno($user, $codcaderno, $aDados){
+			
+			$sWhere = "WHERE codcaderno = '$codcaderno' AND coduser = '$user' ";
+			$aCaderno = $this->getData($this->sTable, $sWhere, $this->sFields);
+			echo json_encode($aCaderno);
+
+		}
+
 	}
 ?>

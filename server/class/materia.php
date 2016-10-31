@@ -22,14 +22,16 @@
 
 			$this->sFields = 't.nome, LEFT(c.nomecaderno, 1) as leftcaderno';
 
+
+			$this->sTable = 'topicos t';
+
 			$sWhere = "INNER JOIN cadernos c
 						ON t.codcaderno = c.codcaderno
 
-						WHERE t.codcaderno = '" . $codcaderno . "'
+						WHERE t.codcaderno = '$codcaderno'
 						AND t.ativo = 'S' 
 						ORDER BY t.dtalteracao DESC,
 						t.hralteracao DESC";
-
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
 

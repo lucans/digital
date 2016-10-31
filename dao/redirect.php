@@ -1,6 +1,9 @@
 <?php 
 
 include('funcoes.php');
+$postdata = file_get_contents("php://input");
+$aDados = json_decode($postdata);
+
 
 $p = $_GET['p'];
 
@@ -29,13 +32,18 @@ switch ($p) {
 		$Caderno = new Caderno();
 		$Caderno->getOneCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;
-
 	case 'getTopicosByCaderno':
-		// loadTopicosByCaderno($q);
-
 		$Materia = new Materia();
 		$Materia->getTopicosByCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;	
+
+	case 'updateCaderno'{
+		$Caderno = new Caderno();
+		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $q);
+		updateCaderno($oRequestInfo->oParametros);
+		break;
+	}
+
 
 	case 'CadernosAndTopicos':
 		loadCadernosAndTopicos();
@@ -49,7 +57,6 @@ switch ($p) {
 	case 'Top3':
 		loadTop3();
 		break;
-
 	case 'removeTag':
 		$aResultCadernosNomes = loadNomeTopicos();
 		loadRemove($q, $aResultCadernosNomes);
