@@ -1,0 +1,94 @@
+<div ng-controller="loginController">
+  <div class="col-md-3"></div>
+  <div class="row">
+    <div class="col s12 m6">
+
+    <div class="card" style="margin:25px 10px;">
+      <h4 class="center digitalcolor white-text">Digital Note</h4>
+    </div>
+
+      <div class="card" ng-if="bLogin">
+   <!-- <div class="card-image">
+            <img src="file:///C:/xampp/htdocs/digital/app/resources/img/book.jpg">
+            <span class="card-title">Card Title</span>
+        </div> -->
+
+        <div class="card-content">
+            <div class="row">
+              <form class="col s12">  
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="text" type="text" class="validate" ng-model="user.email">
+                    <label for="text">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" ng-model="user.password">
+                    <label for="password">Senha</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+
+        <div class="card-action">
+          <button class="btn digitalcolor right" ng-click="userAuth(user)">Entrar</button>
+
+          <label>
+            <a href="javascript:void(0)" ng-click="switchCadastroLogin()"><i class="fa fa-exclamation"></i> Cadastrar</a>
+            <a href="javascript:void(0)" ng-click=""><i class="fa fa-question-circle"></i> Esqueci minha senha</a>
+          </label>
+        </div>
+        
+      </div>
+
+
+      <div class="card" ng-if="bCadastro">
+        <div class="card-content">
+           <span class="card-title">Cadastro</span>
+            <div class="row">
+
+              <form class="col s12">  
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="text" type="text" class="validate" ng-model="user.nome">
+                    <label for="text">Nome</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="text" type="text" class="validate" ng-model="user.email">
+                    <label for="text">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password1" type="password" ng-model="user.password1">
+                    <label for="password1">Senha</label>
+                  </div>
+                </div> 
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password2" type="password" ng-model="user.password2">
+                    <label for="password2">Confirme a senha</label>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+        </div>
+
+        <div class="card-action">
+          <button class="btn digitalcolor right" ng-click="checaUser(user)">Cadastrar</button>
+          <a href="" ng-click="switchCadastroLogin()"><i class="fa fa-exclamation"></i> Já possuo conta</a>        
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div ng-controller="loginController">
+  <div ng-controller="tarefasController">
+    <div ng-controller="cadernoController">
+
+  <div class="panel col-md-3">  
+    <div class="collection with-header col-md-12"  ng-init="getCadernos()" >
+      <li class="collection-header"><h5>Cadernos</h5></li>
+      <div class="collection-item blue-text clickable" ng-repeat="caderno in cadernos" ng-click="getOneCaderno(caderno.codcaderno); getTarefas(caderno.codcaderno);" onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' );">      
+          <b>{{caderno.nomecaderno}}</b>              
+          <!-- <i class="fa fa-chevron-right right" ng-click=""></i>  -->
+        <div class="tarefas red right" ng-if="caderno.atrasadas > 0"><i class="fa fa-clock-o"></i> {{caderno.atrasadas}}</div>
+        <div class="tarefas blue darken-2 right" ng-if="caderno.atuais > 0"><i class="fa fa-pencil"></i> {{caderno.atuais}}</div>
+        <div class="tarefas green right" ng-if="caderno.concluidas > 0"><i class="fa fa-check"></i> {{caderno.concluidas}}</div>
+      </div>
+    </div>
+  </div>    
+
+  <div class="col-md-5 col-md-offset-1">
+    <h5>{{caderno.nomecaderno}}</h5>
+    <div class="card-panel white col-md-12">    
+        <div class="collection col-md-12" ng-class="{'red lighten-5' : today > tarefa.prazo, 'green lighten-5' : tarefa.valor > 0, 'tarefaToday' : tarefa.prazo == today}" ng-repeat="tarefa in tarefas">
+          <form action="#">
+            <p style="padding:7px">   
+              <i class="fa fa-times right clickable" ng-click="removeTarefa(tarefa)"></i>   
+              <label ng-hide="true" for="{{tarefa.codtarefa}}">{{tarefa.codtarefa}}</label>
+              <input type="checkbox" id="{{tarefa.tarefa}}" ng-model="tarefa.valor" ng-checked="{{tarefa.valor}}" ng-click="updateTarefa(tarefa)"/>
+              <label class="left" for="{{tarefa.tarefa}}">{{tarefa.tarefa}}</label>
+              <label class="right" for="{{tarefa.prazo}}">{{tarefa.prazo | date:'dd/MM/yyyy'}}</label>
+            </p>
+          </form>  
+        </div>  
+    </div>
+  </div>
+
+  <div class="col-md-2 col-md-offset-1">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-panel white"> 
+            <div class="row">
+              <input type="text" class="form-control" ng-model="tarefa.tarefa" placeholder="Nova tarefa">
+              <input type="text" class="form-control" ng-model="tarefa.prazo" placeholder="Prazo da tarefa" mask="39/19/9999"> 
+            </div>
+          
+            <div class="card-action">
+                <button class="btn" ng-click="addTarefa(tarefa, caderno.codcaderno)" type="button"><i class="fa fa-plus"></i></button>            
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </div>  
+  </div>  
+</div>  

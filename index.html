@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Digital Note</title>
+      <script src="app/js/angular.js"></script>
+
+      <script src="app/js/angular-route.js"></script>
+      <script src="app/js/myApp.js"></script>
+      <link rel="stylesheet" href="app/bootstrap/css/bootstrap.css">
+      <script src="app/js/jquery.min.js"></script>
+      <script src="app/js/bootstrap.min.js"></script>
+      <script src="app/js/angular-ui-router.js"></script>
+
+      <script src="app/js/ngMask.min.js"></script>
+
+      <link rel="stylesheet" href="text-angular/dist/font-awesome.min.css">
+
+      <link rel="stylesheet" href="app/fontawesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="app/bootstrap/css/meu.css">
+
+      <link rel="stylesheet" href="app/materialize/css/materialize.css">
+      <link rel="stylesheet" href="app/materialize/css/icongoogle.css">
+      <script src="app/materialize/js/materialize.js"></script>
+
+      <script src="text-angular/dist/textAngular.js"></script>
+      <script src="text-angular/dist/textAngular-sanitize.js"></script>
+      <script src="text-angular/dist/textAngularSetup.js"></script>
+      <script src="text-angular/dist/textAngular-rangy.min.js"></script>
+
+      <link rel="stylesheet" href="app/bootstrap/css/style.css" type="text/css">
+  </head>
+
+  <style type="text/css">
+    header, main, footer {
+      padding-left: 240px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+  </style>
+
+  <body ng-app="digitalNote">
+
+    <ul id="dropdown1" class="dropdown-content" style="width: auto !important;" ng-controller="loginController">
+      <li><a href="#Config">Configurações</a></li>                     
+      <li><a href="#Login" ng-click="$root.user = {}; limpaUser();">Sair</a></li>   
+    </ul>
+
+    <nav ng-show="user.coduser">
+      <div class="nav-wrapper grey darken-4">
+        <a href="#!" class="brand-logo right">Digital Note</a>  
+            
+        <ul class="left hide-on-med-and-down">
+          <li><a href="#Cadernos">Cadernos</a></li>  
+          <li><a href="#Materias">Matérias</a></li>  
+          <li><a href="#Tarefas" ng-click="$root.caderno = {}">Tarefas</a></li>                   
+          <li right><a href="#!" class="badge dropdown-button" data-activates="dropdown1" title="Configurar {{user.nome}}">{{user.inicial}}</a></li>           
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main" id="main" style="margin:1%">
+      <div ng-view ></div>
+    </div>
+
+  </body>
+</html>

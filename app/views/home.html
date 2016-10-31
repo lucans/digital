@@ -1,0 +1,22 @@
+<div class="panel-body" ng-init="getLastTopicos()">
+  <div ng-repeat="topico in topicos | filter: srcTopicos">
+    <div class="panel panel-{{topico.tema}} col-xs-6">
+    
+      <div class="panel-heading">
+        <h3 class="panel-title">{{topico.nome}}
+          <button class="btn btn-warning pull-right" title="Editar" ng-click="viewTopico(topico)"> <i class="glyphicon glyphicon-pencil"></i></button>                    
+        </h3>
+      </div>
+      
+      <div class='panel-body'>
+        <label ng-model="novo.conteudo">Conteudo: {{topico.conteudo}}</label>
+        <button class="btn btn-success pull-right"  ng-click="topicoConteudo(topico)"> <i class="glyphicon glyphicon-pencil"></i> Abrir caderno</button>
+      </div>
+
+      <div class='panel-footer'>
+         <small><label ng-model="novo.local">Local: {{topico.local}}, Prioridade: {{topico.prioridade}} </label><br></small>
+      </div>
+      
+    </div>          
+  </div>
+</div>

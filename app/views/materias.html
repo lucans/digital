@@ -1,0 +1,90 @@
+<ul ng-controller="loginController" id="slide-out" class="side-nav fixed col-sm-{{slideSize}}" ng-init="resizeMenu(0, 11); toggleConteudo = true; $root.topico = {}; loadTopicosAnos();">
+<div ng-controller="cadernoController">
+    <li disabled style="margin-top: 65px;"></li>
+
+    <div ng-hide="slide" class="right">
+      <button style="margin: 0 !important" class="btn col s6 waves-effect waves-light digitalcolor" ng-click="slide = !slide; resizeMenu(2, 10)"><i class="fa fa-bars"></i></button>  
+    </div>
+
+    <div ng-show="slide">
+      <button class="btn waves-effect waves-light teal lighten-1 col-sm-3" ng-click="selectCaderno = !selectCaderno"><i class="fa fa-filter"></i></button>
+      <button class="btn waves-effect waves-light digitalcolor col-sm-9" ng-click="slide = !slide; resizeMenu(0, 11)"><i class="fa fa-bars"></i></button>
+      <br /><br />
+      
+    <div class='form-group' ng-init="getCadernos()" ng-show="selectCaderno">         
+          <select class='form-control' ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="caderno.codcaderno" ng-change="getTopicosByCaderno(caderno.codcaderno)"></select>
+    </div>
+     
+      <div class="panel panel-{{topico.tema}}" style="cursor: pointer;" ng-repeat="topico in topicosAnos" ng-click="getOneTopico(topico.codtopico,'');">
+        <div class="panel-heading">
+        <span class="badge left" title="{{topico.nomecaderno}}">{{topico.leftcaderno}}</span>
+        <span style="margin-left:30px">{{topico.nome}}</span></div>          
+      </div> 
+
+    </div>
+
+</ul> 
+
+  <button ng-hide="topico.codtopico" class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovoTopico')"><i class="fa fa-plus"></i> Nova matéria</button>
+
+
+  <div class="panel col-md-{{sizeConteudo}} right" ng-if="topico.codtopico" ng-show="showInfos">
+    <div class="panel-heading">
+
+    <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.topico = {};"></i></strong>
+
+    <i class="fa fa-refresh right" style="cursor: pointer;" ng-click="getOneTopico(topico.codtopico); resize(0, 11); showToast('Atualizado!')"></i>            
+      <ul class="col-md-{{sizeConteudo}}" >
+        <div class="chip" ng-show="topico.conexoes" ng-repeat="conexao in conexoes">
+          <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
+        </div>
+
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+              <div class="modal-body">
+                <div ng-model="conteudoConexao">{{conteudoConexao}}</div>
+              </div>
+
+              <div class="modal-body" ng-hide="conteudoConexao">
+                <div>Esse caderno ainda não possui conteúdo.</div>            
+              </div>
+
+            </div>
+          </div>
+        </div> 
+
+        <div class="palavras" ng-show="topico.palavras > 1">
+          <a href="javascript:void(0)">{{topico.palavras}} Palavras</a>      
+        </div>
+      </ul>   
+
+    </div>
+  </div>
+
+  <div class="panel col-md-{{sizeConteudo}} right" ng-if="topico.codtopico">
+      <div class="panel panel-{{topico.tema}}">        
+          <div class="panel-heading">
+              <h2 class="panel-title">{{topico.nome}}                          
+                <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(topico)"><i class="fa fa-floppy-o"></i></button>                                  
+              </h2>
+          </div>
+
+          <div class="panel-body">   
+            <div class="panel-body" text-angular ng-model="topico.conteudo"></div>
+          </div> 
+      </div>    
+  </div>
+</div>
+
+<style type="text/css">
+  .panel {
+    border-radius:0px !important; 
+  }
+  .panel-heading {
+    border-radius:0px !important; 
+  }
+
+</style>

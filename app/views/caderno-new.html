@@ -1,0 +1,46 @@
+<div ng-controller="cadernoController">
+<div ng-controller="tarefasController">
+
+<button class="btn red col-md-1 right" ng-if="caderno.codcaderno" ng-click="deleteCaderno(caderno.codcaderno)"><i class="fa fa-trash-o"></i> Deletar</button>
+
+
+  <div class="panel panel-default col-md-6 col-md-offset-3">
+  <!--    <div class="panel-heading">
+        Novo caderno
+      </div> -->
+    <div class="panel-body">
+
+        <div class="form-group" ng-hide="true">
+          <label>Codigo Caderno</label>
+          <input type="text" ng-model="caderno.codcaderno" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" ng-model="caderno.nomecaderno" class="form-control">
+        </div>
+    </div>
+
+    <div class="panel-footer">
+      <button class="btn digitalcolor" ng-click="checarCamposCaderno(caderno)"><i class="fa fa-floppy-o"></i></button>
+      <button  class="btn" ng-click="goRota('/Cadernos')">Voltar</button>                  
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+
+  <hr />
+  <!-- <label>Matérias</label> -->
+
+    <div class="collection with-header" ng-init="getTopicosByCaderno(caderno.codcaderno)">
+      <li class="collection-header">Matérias de {{caderno.nomecaderno}}</li>
+      <div ng-repeat="topico in topicosAnos" class="collection-item">  
+        <a href="javascript:void(0)" ng-click="getOneTopico(topico.codtopico, '/NovoTopico')">{{topico.nome}}</a>
+        <i class="fa fa-pencil clickable right" ng-click="getOneTopico(topico.codtopico, '/NovoTopico')"></i>   
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+</div>
