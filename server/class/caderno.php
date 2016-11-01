@@ -22,8 +22,12 @@
 
 		public function updateCaderno($user, $codcaderno, $aDados){
 			
+			$sSet = buildSet($aDados);
+
 			$sWhere = "WHERE codcaderno = '$codcaderno' AND coduser = '$user' ";
-			$aCaderno = $this->getData($this->sTable, $sWhere, $this->sFields);
+
+			$this->updateData($this->sTable, $sWhere, $sSet);
+
 			echo json_encode($aCaderno);
 
 		}

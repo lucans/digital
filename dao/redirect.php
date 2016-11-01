@@ -1,6 +1,7 @@
 <?php 
 
 include('funcoes.php');
+
 $postdata = file_get_contents("php://input");
 $aDados = json_decode($postdata);
 
@@ -37,13 +38,11 @@ switch ($p) {
 		$Materia->getTopicosByCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;	
 
-	case 'updateCaderno'{
+	case 'updateCaderno':
 		$Caderno = new Caderno();
-		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $q);
-		updateCaderno($oRequestInfo->oParametros);
+		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $q, $aDados);
+		// updateCaderno($oRequestInfo->oParametros);
 		break;
-	}
-
 
 	case 'CadernosAndTopicos':
 		loadCadernosAndTopicos();

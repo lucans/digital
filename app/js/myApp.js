@@ -106,7 +106,7 @@
         }
     });
 
-    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout) {	
+    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http) {	
 
         $rootScope.rotas = ['/Cadernos','/NovoTopico','/TopicoConteudo','/Atividades','/NovoCaderno','/Home'];    
         $scope.paineisTema = ['warning','primary','info','danger','success','digital','brown','grey'];
@@ -202,14 +202,15 @@
         };
 
         $scope.updateCaderno = function(oCaderno){
-            // InputData.send('updateCaderno', oCaderno);      
-            $scope.p = 'updateCaderno';
 
-            $http.get("dao/add.php?p="+$s.p"&q="+oCaderno).success(function(result) {            
-                $scope.cadernos = result;
+            $scope.p = 'updateCaderno';
+    
+            $http.post("dao/redirect.php?p=" + $scope.p, {
+                oCaderno: oCaderno
+            }).success(function(result){
+                $scope.caderno = result;
             });
-            
-            return $scope.cadernos;
+           
         };
 
         $scope.inputCaderno = function(oCaderno){

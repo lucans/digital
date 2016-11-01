@@ -4,9 +4,9 @@
 		private $link;
 
 		public function __construct(){
-			$this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+			// $this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 			// $this->link = mysqli_connect('www.lucans.com.br','lucas','meupenis','db_lucas');
-			// $this->link = mysqli_connect("localhost","root","","db_digitalgit");
+			$this->link = mysqli_connect("localhost","root","","db_digitalgit");
 		}
 
 		public function getData($sTable, $sWhere, $sFields){
@@ -31,11 +31,13 @@
 		}		
 
 
-		public function updateData($sTable, $sWhere, $aDados){
+		public function updateData($sTable, $sWhere, $sSet){
 
 
-			$sQuery = "UPDATE $sTable SET 
-						$sWhere";
+			$sQuery = "UPDATE $sTable $sSet $sWhere";
+
+			die($sQuery);
+			
 			$oStmt = mysqli_query($this->link, $sQuery); 
 
 			$aResult = array();				

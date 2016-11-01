@@ -22,7 +22,6 @@
 
 			$this->sFields = 't.nome, LEFT(c.nomecaderno, 1) as leftcaderno';
 
-
 			$this->sTable = 'topicos t';
 
 			$sWhere = "INNER JOIN cadernos c
