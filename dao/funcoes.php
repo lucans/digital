@@ -1,7 +1,7 @@
 <?php
 
-$link = mysqli_connect("localhost","root","","db_digitalgit");
-// $link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+// $link = mysqli_connect("localhost","root","","db_digitalgit");
+$link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 
 // mysqli_select_db($link, "db_lucas");
 
@@ -31,9 +31,18 @@ function buildSet ($aDados) {
 
 	$sSet = 'SET ';
 
+	$i = 1;
+
 	foreach ($aDados as $key => $value) {
 		foreach ($value as $key2 => $value2) {
-			$sSet .= $key2 . " = '" . $value2 . "', ";
+
+			$sSet .= $key2 . " = '" . $value2 . "' ";
+
+				if ($i < sizeof((array)$value)) {
+					$sSet .= ", ";
+				}
+				
+			$i++; 
 		}
 	}
 

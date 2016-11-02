@@ -28,8 +28,6 @@
 
 			$this->updateData($this->sTable, $sWhere, $sSet);
 
-			echo json_encode($aCaderno);
-
 		}
 
 	}
