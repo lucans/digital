@@ -32,10 +32,18 @@
 
 
 		public function updateData($sTable, $sWhere, $sSet){
-			die($sTable . $sWhere . $sSet);
 
 			$sQuery = "UPDATE $sTable $sSet $sWhere";
 			
+			mysqli_query($this->link, $sQuery); 
+
+			unset($sWhere);
+			
+		}		
+
+		public function deleteData($sTable, $sWhere){
+
+			$sQuery = "DELETE FROM $sTable $sWhere";
 			die($sQuery);
 			mysqli_query($this->link, $sQuery); 
 

@@ -37,13 +37,14 @@ switch ($p) {
 		$Materia = new Materia();
 		$Materia->getTopicosByCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;	
-
 	case 'updateCaderno':
 		$Caderno = new Caderno();
-		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $q, $aDados);
-		// updateCaderno($oRequestInfo->oParametros);
+		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $aDados);
 		break;
-
+	case 'deleteCaderno':
+		$Caderno = new Caderno();
+		$Caderno->deleteCaderno($_SESSION['user'][0]['coduser'], $q);
+		break;	
 	case 'CadernosAndTopicos':
 		loadCadernosAndTopicos();
 		break;
@@ -74,11 +75,6 @@ switch ($p) {
 		break;
 	case 'countPalavras':
 		countPalavras($q);
-		break;	
-
-
-	case 'deleteCaderno':
-		deleteCaderno($q);
 		break;		
 	case 'deleteMateria':
 		deleteMateria($q);
