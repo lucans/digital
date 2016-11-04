@@ -43,7 +43,7 @@
 
 		public function deleteData($sTable, $sWhere){
 
-			$sQuery = "DELETE FROM $sTable $sWhere";
+			$sQuery = "UPDATE $sTable SET ativo = !ativo FROM $sTable $sWhere";
 			die($sQuery);
 			mysqli_query($this->link, $sQuery); 
 
