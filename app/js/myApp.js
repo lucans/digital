@@ -210,7 +210,8 @@
             }).success(function(result){
                 $scope.caderno = result;
             });
-           
+            
+            $scope.goRota('/Cadernos');
         };
 
         $scope.inputCaderno = function(oCaderno){
