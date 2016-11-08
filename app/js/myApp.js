@@ -314,7 +314,7 @@
 
     }]);  
 
-    app.controller("cadernoController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout) {                  
+    app.controller("cadernoController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','$http', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, $http) {                  
 
         $scope.goRota = function(rota){           
             if (rota) {                 
@@ -335,24 +335,44 @@
         };
 
         $scope.getOneCaderno = function(codcaderno, rota){
-          $rootScope.caderno = [];      
+            $rootScope.caderno = [];      
             RequestDataOne.getServerData('loadOneCaderno', codcaderno).then(function (dados) {                       
                 $rootScope.caderno = dados[0];             
                 $scope.goRota(rota);                      
             }); 
         };
 
-        $scope.deleteCaderno = function(codcaderno){     
-                RequestDataOne.getServerData('deleteCaderno', codcaderno).then(function (dados) {                       
-                  $rootScope.msg = dados;      
+        $scope.deleteCaderno = function(codcaderno){   
 
-                if ($rootScope.msg == 'true') {
-                  $scope.showToast('Deletado com sucesso!', 5000);
-                  $scope.goRota('/Cadernos');
-                } else {
-                  $scope.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
-                }    
-            }); 
+            $scope.p = 'deleteCaderno';
+    
+            $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codcaderno).success(function(result){
+                $scope.return = result;       
+            });
+
+           
+
+            if ($scope.return.msg == 'true') {
+                $scope.showToast('Deletado com sucesso!', 5000);
+                $scope.goRota('/Cadernos');
+            } else {
+                $scope.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
+            }    
+
+
+
+
+            //     RequestDataOne.getServerData('deleteCaderno', codcaderno).then(function (dados) {                       
+            //     $rootScope.msg = dados;      
+
+            //     if ($rootScope.msg == 'true') {
+            //       $scope.showToast('Deletado com sucesso!', 5000);
+            //       $scope.goRota('/Cadernos');
+            //     } else {
+            //       $scope.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
+            //     }    
+            // }); 
+
         };
 
     }]);

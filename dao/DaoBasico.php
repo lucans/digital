@@ -34,19 +34,15 @@
 		public function updateData($sTable, $sWhere, $sSet){
 
 			$sQuery = "UPDATE $sTable $sSet $sWhere";
-			
 			mysqli_query($this->link, $sQuery); 
-
 			unset($sWhere);
 			
 		}		
 
 		public function deleteData($sTable, $sWhere){
 
-			$sQuery = "UPDATE $sTable SET ativo = !ativo FROM $sTable $sWhere";
-			die($sQuery);
+			$sQuery = "UPDATE $sTable SET ativo = IF(ativo = 'S', 'N', 'S') $sWhere";
 			mysqli_query($this->link, $sQuery); 
-
 			unset($sWhere);
 			
 		}
