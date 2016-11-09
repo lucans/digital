@@ -15,6 +15,7 @@
 			
 
 			$sQuery = "SELECT $sFields FROM $sTable $sWhere";
+
 			$oStmt = mysqli_query($this->link, $sQuery); 
 
 			$aResult = array();				
@@ -33,7 +34,10 @@
 
 		public function updateData($sTable, $sWhere, $sSet){
 
+
+
 			$sQuery = "UPDATE $sTable $sSet $sWhere";
+			die($sQuery);
 			mysqli_query($this->link, $sQuery); 
 			unset($sWhere);
 			

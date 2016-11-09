@@ -347,12 +347,10 @@
             $scope.p = 'deleteCaderno';
     
             $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codcaderno).success(function(result){
-                $scope.return = result;       
+                $scope.msg = result;       
             });
 
-           
-
-            if ($scope.return.msg == 'true') {
+            if ($scope.msg == 'true') {
                 $scope.showToast('Deletado com sucesso!', 5000);
                 $scope.goRota('/Cadernos');
             } else {

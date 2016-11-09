@@ -32,15 +32,21 @@
 
 		public function deleteCaderno($user, $codcaderno){
 
-			$sWhere = "WHERE codcaderno = '$codcaderno'";
-			$aReturn = $this->getData($this->sTable, $sWhere);	
+			$aReturn = [];
 
-			if (isset($aReturn)) {
+			$sWhere = "WHERE codcaderno = '$codcaderno'";
+			$sTableMaterias = 'materias';
+			$sFieldsMaterias = 'codcaderno';
+
+			$aReturn = $this->getData($sTableMaterias, $sWhere, $sFieldsMaterias);	
+
+
+			if (empty($aReturn)) {
+				echo json_encode(array('msg' => 'false'));
+			} else{
 				$sWhere = "WHERE codcaderno = '$codcaderno' AND coduser = '$user' " . $this->sAtivo;
 				$this->deleteData($this->sTable, $sWhere);			
 				echo json_encode(array('msg' => 'true'));
-			} else{
-				echo json_encode(array('msg' => 'false'));
 			}
 
 		}

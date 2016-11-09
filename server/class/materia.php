@@ -1,7 +1,7 @@
 <?
 	class Materia extends Dao{
 
-		public $sTable = 'topicos';
+		public $sTable = 'materias';
 
 		public function getMaterias($user){
 
@@ -20,17 +20,17 @@
 
 		public function getTopicosByCaderno($user, $codcaderno){
 
-			$this->sFields = 't.nome, LEFT(c.nomecaderno, 1) as leftcaderno';
+			$this->sFields = 'm.nome, LEFT(c.nomecaderno, 1) as leftcaderno';
 
-			$this->sTable = 'topicos t';
+			$this->sTable = 'materias m';
 
 			$sWhere = "INNER JOIN cadernos c
-						ON t.codcaderno = c.codcaderno
+						ON m.codcaderno = c.codcaderno
 
-						WHERE t.codcaderno = '$codcaderno'
-						AND t.ativo = 'S' 
-						ORDER BY t.dtalteracao DESC,
-						t.hralteracao DESC";
+						WHERE m.codcaderno = '$codcaderno'
+						AND m.ativo = 'S' 
+						ORDER BY m.dtalteracao DESC,
+						m.hralteracao DESC";
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
 
