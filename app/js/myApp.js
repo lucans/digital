@@ -49,7 +49,26 @@
             });
         }]);
          
-        
+    
+    app.service("toast", function () {
+
+        this.showToast = function (message, time){
+          if(!time) { time = 2000 };
+            Materialize.toast(message, time);        
+        };
+
+    });    
+
+    app.service("route", function ($location) {
+
+        this.goRota = function(rota){
+            if (rota) {                 
+                $location.path(rota);         
+            }
+        };
+
+    });
+
     app.service("InputData", function ($http) {
         this.send = function(sRequestName, oParametros) {
             $http.post("dao/add.php?p=" + sRequestName, {
@@ -106,7 +125,7 @@
         }
     });
 
-    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http) {	
+    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http','toast', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http, toast) {  
 
         $rootScope.rotas = ['/Cadernos','/NovoTopico','/TopicoConteudo','/Atividades','/NovoCaderno','/Home'];    
         $scope.paineisTema = ['warning','primary','info','danger','success','digital','brown','grey'];
@@ -169,26 +188,21 @@
 
             if(!topico.codtopico) {
                 $scope.inputTopico(topico);
-                $scope.showToast("Inserido!"); 
+                toast.showToast("Inserido!"); 
             } else {
                 $scope.updateTopico(topico);
-                $scope.showToast("Atualizado!"); 
+                toast.showToast("Atualizado!"); 
             };
 
             $scope.goRota('/Materias');              
         };
 
-        $scope.showToast = function (message, time){
-          if(!time) { time = 2000 };
-            Materialize.toast(message, time);        
-        };
-
         $scope.checarCamposCaderno = function(caderno){       
             if(!caderno.codcaderno) {
-                $scope.showToast('Inserido!');
+                toast.showToast('Inserido!');
                 $scope.inputCaderno(caderno);
             }else{
-                $scope.showToast('Atualizado!');
+                toast.showToast('Atualizado!');
                 $scope.updateCaderno(caderno);
             }
         };
@@ -238,7 +252,7 @@
                   $rootScope.msg = dados;      
 
                 if ($rootScope.msg == 'true') {
-                  $scope.showToast('Deletado com sucesso!', 5000);
+                  toast.showToast('Deletado com sucesso!', 5000);
                   $scope.goRota('/Cadernos');
                 }        
             }); 
@@ -250,7 +264,7 @@
             }); 
         };
 
-	}]);
+    }]);
 
     app.controller("homeController", ['$scope','RequestData','$location','$rootScope', function ($scope, RequestData, $location, $rootScope) { 
 
@@ -314,13 +328,7 @@
 
     }]);  
 
-    app.controller("cadernoController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','$http', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, $http) {                  
-
-        $scope.goRota = function(rota){           
-            if (rota) {                 
-                $location.path(rota);         
-            }
-        };
+    app.controller("cadernoController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','$http','toast','route', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, $http, toast, route) {                  
 
         $scope.getCadernos = function(){
             RequestData.getServerData('Cadernos').then(function (dados) {    
@@ -338,7 +346,7 @@
             $rootScope.caderno = [];      
             RequestDataOne.getServerData('loadOneCaderno', codcaderno).then(function (dados) {                       
                 $rootScope.caderno = dados[0];             
-                $scope.goRota(rota);                      
+                route.goRota(rota);                      
             }); 
         };
 
@@ -347,34 +355,20 @@
             $scope.p = 'deleteCaderno';
     
             $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codcaderno).success(function(result){
-                $scope.msg = result;       
+                $scope.return = result;   
+
+                if ($scope.return.msg == 'true') {
+                    toast.showToast('Deletado com sucesso!', 5000);
+                    route.goRota('/Cadernos');
+                } else {
+                    toast.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
+                }   
+                        
             });
-
-            if ($scope.msg == 'true') {
-                $scope.showToast('Deletado com sucesso!', 5000);
-                $scope.goRota('/Cadernos');
-            } else {
-                $scope.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
-            }    
-
-
-
-
-            //     RequestDataOne.getServerData('deleteCaderno', codcaderno).then(function (dados) {                       
-            //     $rootScope.msg = dados;      
-
-            //     if ($rootScope.msg == 'true') {
-            //       $scope.showToast('Deletado com sucesso!', 5000);
-            //       $scope.goRota('/Cadernos');
-            //     } else {
-            //       $scope.showToast('O Caderno não pode ser deletado pois possui Matérias', 5000);
-            //     }    
-            // }); 
 
         };
 
     }]);
-
     app.controller("loginController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','RequestDataThree', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, RequestDataThree) {                  
         
 

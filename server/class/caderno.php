@@ -36,18 +36,17 @@
 
 			$sWhere = "WHERE codcaderno = '$codcaderno'";
 			$sTableMaterias = 'materias';
-			$sFieldsMaterias = 'codcaderno';
+			// $sFieldsMaterias = 'codcaderno';
 
-			$aReturn = $this->getData($sTableMaterias, $sWhere, $sFieldsMaterias);	
+			$aReturn = $this->getData($sTableMaterias, $sWhere, $this->sFields);	
 
-
-			if (empty($aReturn)) {
+			if (count($aReturn) > 0) {
 				echo json_encode(array('msg' => 'false'));
-			} else{
+			} else {
 				$sWhere = "WHERE codcaderno = '$codcaderno' AND coduser = '$user' " . $this->sAtivo;
 				$this->deleteData($this->sTable, $sWhere);			
 				echo json_encode(array('msg' => 'true'));
-			}
+			}			
 
 		}
 	}

@@ -11,10 +11,9 @@
 
 		public function getData($sTable, $sWhere, $sFields){
 
-			$sFields = empty($sFields) ? '*' : $sFields;
-			
+			$sFields = empty($sFields) ? '*' : $sFields;			
 
-			$sQuery = "SELECT $sFields FROM $sTable $sWhere";
+			$sQuery = "SELECT $sFields FROM $sTable $sWhere";			
 
 			$oStmt = mysqli_query($this->link, $sQuery); 
 
