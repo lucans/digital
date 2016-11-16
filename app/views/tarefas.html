@@ -5,7 +5,7 @@
   <div class="panel col-md-3">  
     <div class="collection with-header col-md-12"  ng-init="getCadernos()" >
       <li class="collection-header"><h5>Cadernos</h5></li>
-      <div class="collection-item blue-text clickable" ng-repeat="caderno in cadernos" ng-click="getOneCaderno(caderno.codcaderno); getTarefas(caderno.codcaderno);" onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' );">      
+      <div class="collection-item blue-text clickable" ng-repeat="caderno in cadernos" ng-click="getTarefas(caderno.codcaderno);" onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' );">      
           <b>{{caderno.nomecaderno}}</b>              
           <!-- <i class="fa fa-chevron-right right" ng-click=""></i>  -->
         <div class="tarefas red right" ng-if="caderno.atrasadas > 0"><i class="fa fa-clock-o"></i> {{caderno.atrasadas}}</div>

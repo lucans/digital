@@ -1,4 +1,4 @@
-<ul ng-controller="loginController" id="slide-out" class="side-nav fixed col-sm-{{slideSize}}" ng-init="resizeMenu(0, 11); toggleConteudo = true; $root.topico = {}; loadTopicosAnos();">
+<ul ng-controller="loginController" id="slide-out" class="side-nav fixed col-sm-{{slideSize}}" ng-init="getMaterias(); resizeMenu(0, 11); toggleConteudo = true; $root.topico = {};">
 <div ng-controller="cadernoController">
     <li disabled style="margin-top: 65px;"></li>
 
@@ -15,27 +15,29 @@
           <select class='form-control' ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="caderno.codcaderno" ng-change="getTopicosByCaderno(caderno.codcaderno)"></select>
     </div>
      
-      <div class="panel panel-{{topico.tema}}" style="cursor: pointer;" ng-repeat="topico in topicosAnos" ng-click="getOneTopico(topico.codtopico,'');">
+      <div class="panel panel-{{materia.tema}}" style="cursor: pointer;" ng-repeat="materia in materias" ng-click="getOneMateria(materia.codmateria);">
         <div class="panel-heading">
-        <span class="badge left" title="{{topico.nomecaderno}}">{{topico.leftcaderno}}</span>
-        <span style="margin-left:30px">{{topico.nome}}</span></div>          
+        <span class="badge left" title="{{materia.nomecaderno}}">{{materia.leftcaderno}}</span>
+        <span style="margin-left:30px">{{materia.nome}}</span></div>          
       </div> 
 
     </div>
 
 </ul> 
 
-  <button ng-hide="topico.codtopico" class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovoTopico')"><i class="fa fa-plus"></i> Nova matéria</button>
+  <button ng-hide="materia.codmateria" class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovaMateria')"><i class="fa fa-plus"></i> Nova matéria</button>
 
 
-  <div class="panel col-md-{{sizeConteudo}} right" ng-if="topico.codtopico" ng-show="showInfos">
+  <div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
     <div class="panel-heading">
 
-    <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.topico = {};"></i></strong>
+    <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.materia = {};"></i></strong>
 
-    <i class="fa fa-refresh right" style="cursor: pointer;" ng-click="getOneTopico(topico.codtopico); resize(0, 11); showToast('Atualizado!')"></i>            
+    <i class="fa fa-refresh right" style="cursor: pointer;" ng-click="getOneMateria(materia.codmateria); resize(0, 11); showToast('Atualizado!')"></i> 
+
       <ul class="col-md-{{sizeConteudo}}" >
-        <div class="chip" ng-show="topico.conexoes" ng-repeat="conexao in conexoes">
+
+        <div class="chip" ng-repeat="conexao in conexoes" ng-show="conexao">
           <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
         </div>
 
@@ -56,27 +58,28 @@
           </div>
         </div> 
 
-        <div class="palavras" ng-show="topico.palavras > 1">
-          <a href="javascript:void(0)">{{topico.palavras}} Palavras</a>      
+        <div class="palavras" ng-show="materia.palavras > 1">
+          <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>      
         </div>
       </ul>   
 
     </div>
   </div>
 
-  <div class="panel col-md-{{sizeConteudo}} right" ng-if="topico.codtopico">
-      <div class="panel panel-{{topico.tema}}">        
+  <div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
+      <div class="panel panel-{{materia.tema}}">        
           <div class="panel-heading">
-              <h2 class="panel-title">{{topico.nome}}                          
-                <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(topico)"><i class="fa fa-floppy-o"></i></button>                                  
+              <h2 class="panel-title">{{materia.nome}}                          
+                <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(materia)"><i class="fa fa-floppy-o"></i></button>                                  
               </h2>
           </div>
 
           <div class="panel-body">   
-            <div class="panel-body" text-angular ng-model="topico.conteudo"></div>
+            <div class="panel-body" text-angular ng-model="materia.conteudo"></div>
           </div> 
       </div>    
   </div>
+
 </div>
 
 <style type="text/css">

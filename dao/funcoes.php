@@ -1,7 +1,7 @@
 <?php
 
-// $link = mysqli_connect("localhost","root","","db_digitalgit");
-$link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+$link = mysqli_connect("localhost","root","","db_digitalgit");
+// $link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 
 // mysqli_select_db($link, "db_lucas");
 
@@ -10,6 +10,7 @@ $link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 include('DaoBasico.php');
 require_once('../server/class/caderno.php');
 require_once('../server/class/materia.php');
+require_once('../server/class/tarefa.php');
 
 
 include('daoCaderno.php');
@@ -27,6 +28,18 @@ session_start();
 
 
 
+function countPalavras($conteudo){
+	
+	if (count_chars($conteudo)) {
+		$conteudo = strip_tags($conteudo);
+		$aConteudo = explode(' ', $conteudo);
+		$iPalavras = count($aConteudo);
+		return $iPalavras;		
+	}
+
+	return $iPalavras;
+}
+
 function buildSet ($aDados) {
 
 	$sSet = 'SET ';
@@ -36,7 +49,7 @@ function buildSet ($aDados) {
 	foreach ($aDados as $key => $value) {
 		foreach ($value as $key2 => $value2) {
 
-			$sSet .= $key2 . " = '" . $value2 . "' ";
+			$sSet .= $key2 . " = '" . utf8_decode($value2) . "' ";
 
 				if ($i < sizeof((array)$value)) {
 					$sSet .= ", ";

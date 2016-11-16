@@ -22,29 +22,62 @@ if(empty($_GET['c'])){
 
 
 switch ($p) {
-	case 'Topicos':
-		loadTopicos();
-		break;
-	case 'Cadernos':
+	case 'insertCaderno':
+		$Caderno = new Caderno();
+		$Caderno->insertCaderno($_SESSION['user'][0]['coduser'], $aDados);
+		break;	
+
+	case 'getCadernos':
 		$Caderno = new Caderno();
 		$Caderno->getCadernos($_SESSION['user'][0]['coduser']);
 		break;
+
 	case 'loadOneCaderno':
 		$Caderno = new Caderno();
 		$Caderno->getOneCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;
+
 	case 'getTopicosByCaderno':
 		$Materia = new Materia();
 		$Materia->getTopicosByCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;	
+
 	case 'updateCaderno':
 		$Caderno = new Caderno();
 		$Caderno->updateCaderno($_SESSION['user'][0]['coduser'], $aDados);
 		break;
+
 	case 'deleteCaderno':
 		$Caderno = new Caderno();
 		$Caderno->deleteCaderno($_SESSION['user'][0]['coduser'], $q);
 		break;	
+
+	case 'getMaterias':
+		$Materia = new Materia();
+		$Materia->getMaterias($_SESSION['user'][0]['coduser']);
+		break;	
+
+	case 'getOneMateria':
+		$Materia = new Materia();
+		$Materia->getOneMateria($_SESSION['user'][0]['coduser'], $q);
+		break;
+
+	case 'insertCaderno':
+		$Materia = new Materia();
+		$Materia->insertMateria($_SESSION['user'][0]['coduser'], $aDados);
+		break;	
+		
+	case 'updateMateria':
+		$Materia = new Materia();
+		$Materia->updateMateria($_SESSION['user'][0]['coduser'], $aDados);
+		break;
+
+	case 'getTarefas':
+		$Tarefa = new Tarefa();
+		$Tarefa->getTarefas($_SESSION['user'][0]['coduser'], $q);
+		break;
+
+
 	case 'CadernosAndTopicos':
 		loadCadernosAndTopicos();
 		break;
@@ -88,9 +121,6 @@ switch ($p) {
 	case 'getUser':
 		getUser();
 		break;						
-	case 'getTarefas':
-		loadTarefas($q);
-		break;	
 	case 'getTarefasAtrasadas':
 		loadTarefasAtrasadas($q);
 		break;		

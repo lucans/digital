@@ -4,16 +4,18 @@
 		private $link;
 
 		public function __construct(){
-			$this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+			// $this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
 			// $this->link = mysqli_connect('www.lucans.com.br','lucas','meupenis','db_lucas');
-			// $this->link = mysqli_connect("localhost","root","","db_digitalgit");
+			$this->link = mysqli_connect("localhost","root","","db_digitalgit");
 		}
 
 		public function getData($sTable, $sWhere, $sFields){
 
 			$sFields = empty($sFields) ? '*' : $sFields;			
 
-			$sQuery = "SELECT $sFields FROM $sTable $sWhere";			
+			$sQuery = "SELECT $sFields FROM $sTable $sWhere";		
+
+			// die($sQuery);
 
 			$oStmt = mysqli_query($this->link, $sQuery); 
 
@@ -31,12 +33,20 @@
 		}		
 
 
+		public function insertData($sTable, $sSet){
+
+			$sQuery = "INSERT INTO $sTable $sSet";
+
+			mysqli_query($this->link, $sQuery); 
+			unset($sWhere);
+			
+		}		
+
+
 		public function updateData($sTable, $sWhere, $sSet){
 
-
-
 			$sQuery = "UPDATE $sTable $sSet $sWhere";
-			die($sQuery);
+
 			mysqli_query($this->link, $sQuery); 
 			unset($sWhere);
 			

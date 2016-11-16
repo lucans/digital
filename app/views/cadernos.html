@@ -5,7 +5,10 @@
 <div ng-controller="loginController">
   <div class="collection with-header col-md-6" ng-init="getCadernos()">
     <li class="collection-header" ng-click	="getCadernos()"><h5>Cadernos</h5></li>
-    <div class="collection-item blue-text clickable" ng-click="getOneCaderno(caderno.codcaderno, '/NovoCaderno')" ng-repeat="caderno in cadernos" onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' ); ">  
+    <div class="collection-item blue-text clickable" ng-click="getOneCaderno(caderno.codcaderno, '/NovoCaderno')" 
+    	ng-repeat="caderno in cadernos" 
+    	onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' ); ">  
+
       <b title="Editar Caderno">{{caderno.nomecaderno}}</b>  
        	<div ng-click="showToast(' Tarefas atrasadas. ')" class="tarefas red right" ng-if="caderno.atrasadas > 0"><i class="fa fa-clock-o"></i> {{caderno.atrasadas}}</div>
         <div ng-click="showToast(' Tarefas a fazer.   ')" class="tarefas blue darken-2 right" ng-if="caderno.atuais > 0"><i class="fa fa-pencil"></i> {{caderno.atuais}}</div>

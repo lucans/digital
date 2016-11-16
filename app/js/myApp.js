@@ -8,7 +8,7 @@
                 templateUrl: 'app/views/materias.html',
                 controller: 'topicoController'
             }).
-            when('/NovoTopico', {
+            when('/NovoMateria', {
                 templateUrl: 'app/views/materia-new.html',
                 controller: 'topicoController'
             }).
@@ -125,9 +125,9 @@
         }
     });
 
-    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http','toast', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http, toast) {  
+    app.controller("topicoController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http','toast','route', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http, toast, route) {  
 
-        $rootScope.rotas = ['/Cadernos','/NovoTopico','/TopicoConteudo','/Atividades','/NovoCaderno','/Home'];    
+        $rootScope.rotas = ['/Cadernos','/NovoMateria','/TopicoConteudo','/Atividades','/NovoCaderno','/Home'];    
         $scope.paineisTema = ['warning','primary','info','danger','success','digital','brown','grey'];
 
         $scope.data = new Date();        
@@ -145,12 +145,6 @@
             }
         };
 
-        $scope.getTopicos = function(){
-            RequestData.getServerData('Topicos').then(function (dados) {
-                $scope.topicos = dados;
-            });           
-        };
-
         $scope.getConexoes = function(codtopico){                
             RequestDataOne.getServerData('getConexoes', codtopico, 1).then(function (dados) {                       
                 $scope.aConexoes = dados;                     
@@ -164,56 +158,74 @@
             });                   
         }
 
-        $scope.loadTopicosAnos = function(ano){  
-            if (!ano) {ano = 'Todos'; }                                   
-            RequestDataOne.getServerData('loadTopicosAnos').then(function (dados) {                       
-                $scope.topicosAnos = dados;                            
-            });  
-        }
+        // $scope.loadTopicosAnos = function(ano){  
+        //     if (!ano) {ano = 'Todos'; }                                   
+        //     RequestDataOne.getServerData('loadTopicosAnos').then(function (dados) {                       
+        //         $scope.topicosAnos = dados;                            
+        //     });  
+        // }
 
-        $scope.getOneTopico = function(codtopico, rota){
-          $rootScope.topico = [];   
-            $scope.showInfos = false;
-            RequestDataOne.getServerData('loadOneTopico', codtopico).then(function (dados) {                       
-                $rootScope.topico = dados[0];                      
-                $scope.conexoes = $rootScope.topico.conexoes.split(",");
-                $scope.goRota(rota);  
-            }); 
-            $scope.showInfos = true;
-        };
 
-        $scope.checarCampos = function(topico){  
+        $scope.getMaterias = function(){
+            $scope.p = 'getMaterias';
     
-            topico.tema = (!topico.tema) ? 'default' : topico.tema;               
+            $http.get("dao/redirect.php?p=" + $scope.p).success(function(result){
+                $scope.materias = result;               
+            });
+        };   
 
-            if(!topico.codtopico) {
-                $scope.inputTopico(topico);
+        $scope.getOneMateria = function(codmateria){
+            $scope.p = 'getOneMateria';
+    
+            $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codmateria).success(function(result){
+                $scope.materia = result[0];               
+                $scope.conexoes = $scope.materia.conexoes.split(",");               
+            });           
+        };      
+
+
+        $scope.checarCampos = function(materia){  
+        
+            if(!materia.codmateria) {
+                $scope.inputMateria(materia);
                 toast.showToast("Inserido!"); 
             } else {
-                $scope.updateTopico(topico);
+                $scope.updateMateria(materia);
                 toast.showToast("Atualizado!"); 
             };
 
-            $scope.goRota('/Materias');              
+            route.goRota('/Materias');              
         };
 
-        $scope.checarCamposCaderno = function(caderno){       
-            if(!caderno.codcaderno) {
-                toast.showToast('Inserido!');
-                $scope.inputCaderno(caderno);
-            }else{
-                toast.showToast('Atualizado!');
-                $scope.updateCaderno(caderno);
-            }
+
+        $scope.updateMateria = function(oMateria){            
+            // InputData.send('updateMateria', oMateria);  
+
+            $scope.p = 'updateMateria';
+
+            $http.post("dao/redirect.php?p=" + $scope.p, {
+                oMateria: oMateria
+            }).success(function(result){               
+                route.goRota('/Materias');
+            });
+
         };
 
-        $scope.updateTopico = function(oTopico){            
-            InputData.send('updateTopico', oTopico);  
+        $scope.inputMateria = function(oMateria){                      
+
+            $scope.p = 'inputMateria';
+
+            $http.post("dao/redirect.php?p=" + $scope.p, {
+                oMateria: oMateria
+            }).success(function(result){               
+                route.goRota('/Materias');
+            });
+
         };
 
-        $scope.inputTopico = function(oTopico){
-            InputData.send('inputTopico', oTopico);        
-        };
+
+
+
 
         $scope.updateCaderno = function(oCaderno){
 
@@ -223,14 +235,19 @@
                 oCaderno: oCaderno
             }).success(function(result){
                 $scope.caderno = result;
+                route.goRota('/Cadernos');
             });
             
-            $scope.goRota('/Cadernos');
         };
 
         $scope.inputCaderno = function(oCaderno){
-            InputData.send('inputCaderno', oCaderno);  
-            $scope.goRota('/Cadernos');
+            $scope.p = 'insertCaderno';
+            $http.post("dao/redirect.php?p=" + $scope.p, {
+                oCaderno: oCaderno
+            }).success(function(result){
+                $scope.caderno = result;
+                route.goRota('/Cadernos');
+            });
         };
 
         $scope.getTarefasAtrasadas = function(codcaderno){
@@ -240,11 +257,11 @@
             return $scope.atrasadas;
         };
 
-        $scope.topicoConteudo = function(oTopico) {
+        $scope.topicoConteudo = function(oMateria) {
             RequestDataOne.getServerData('loadOneTopico', codtopico).then(function (dados) {                       
                 $scope.topicosCodNomeTema = dados;                  
             });  
-            $rootScope.topico = oTopico;           
+            $rootScope.topico = oMateria;           
         };
 
         $scope.deleteMateria = function(codtopico){     
@@ -259,7 +276,7 @@
         };
 
         $scope.openModalConexao = function(conexao){
-             RequestDataOne.getServerData('openModalConexao', conexao).then(function (dados) {                       
+            RequestDataOne.getServerData('openModalConexao', conexao).then(function (dados) {                       
                 $rootScope.conteudoConexao = dados;                          
             }); 
         };
@@ -270,7 +287,7 @@
 
     }]);
 
-    app.controller("tarefasController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout) {          
+    app.controller("tarefasController", ['$scope','$rootScope', '$timeout','$http','toast', 'route', function ($scope, $rootScope, $timeout, $http, toast, route) {
 
         $scope.addTarefa = function(tarefa, codcaderno){         
             tarefa.codcaderno = codcaderno;                     
@@ -289,10 +306,14 @@
         };
 
         $scope.getTarefas = function(codcaderno){
-            RequestDataOne.getServerData('getTarefas', codcaderno).then(function (dados) {                       
-                $scope.tarefas = dados;           
-            }); 
+            $scope.p = 'getTarefas';
+    
+            $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codcaderno).success(function(result){
+                $scope.tarefas = result;               
+            });
         };
+
+
 
         $scope.updateTarefa = function(oTarefa){        
             InputData.send('updateTarefa', oTarefa);              
@@ -330,9 +351,15 @@
 
     app.controller("cadernoController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','$http','toast','route', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, $http, toast, route) {                  
 
+        $scope.goRota = function(rota){
+            route.goRota(rota);
+        }
+
         $scope.getCadernos = function(){
-            RequestData.getServerData('Cadernos').then(function (dados) {    
-                $scope.cadernos = dados;                          
+            $scope.p = 'getCadernos';
+    
+            $http.get("dao/redirect.php?p=" + $scope.p).success(function(result){
+                $scope.cadernos = result;               
             });
         };        
 
@@ -348,6 +375,16 @@
                 $rootScope.caderno = dados[0];             
                 route.goRota(rota);                      
             }); 
+        };
+
+        $scope.checarCamposCaderno = function(caderno){       
+            if(!caderno.codcaderno) {
+                $scope.inputCaderno(caderno);     
+                toast.showToast('Inserido!');           
+            }else{
+                $scope.updateCaderno(caderno);
+                toast.showToast('Atualizado!');
+            }
         };
 
         $scope.deleteCaderno = function(codcaderno){   
@@ -369,6 +406,7 @@
         };
 
     }]);
+
     app.controller("loginController", ['$scope','RequestData','InputData','RequestDataOne','$rootScope', '$location', '$timeout','RequestDataThree', function ($scope, RequestData, InputData, RequestDataOne, $rootScope, $location, $timeout, RequestDataThree) {                  
         
 

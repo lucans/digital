@@ -144,18 +144,6 @@ function loadOneTopico($q){
 }
 
 
-function countPalavras($conteudo){
-	global $link;
-
-	if (count_chars($conteudo)) {
-		$conteudo = strip_tags($conteudo);
-		$aConteudo = explode(' ', $conteudo);
-		$iPalavras = count($aConteudo);
-		return $iPalavras;		
-	} 
-	return $iPalavras;
-}
-
 function deleteMateria($q){
 	global $link;
 

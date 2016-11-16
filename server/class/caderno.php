@@ -26,9 +26,20 @@
 
 			$sSet = buildSet($aDados);
 			$sWhere = "WHERE codcaderno = '" . $aDados->oCaderno->codcaderno . "' AND coduser = '$user' ";
+			
 			$this->updateData($this->sTable, $sWhere, $sSet);
 
-		}		
+		}	
+
+		public function insertCaderno($user, $aDados){
+
+			$aDados->oCaderno->coduser = $user;
+
+			$sSet = buildSet($aDados);		
+			
+			$this->insertData($this->sTable, $sSet);
+
+		}	
 
 		public function deleteCaderno($user, $codcaderno){
 
@@ -36,7 +47,6 @@
 
 			$sWhere = "WHERE codcaderno = '$codcaderno'";
 			$sTableMaterias = 'materias';
-			// $sFieldsMaterias = 'codcaderno';
 
 			$aReturn = $this->getData($sTableMaterias, $sWhere, $this->sFields);	
 
