@@ -60,8 +60,7 @@
 			$sWhere = "INNER JOIN cadernos c
 						ON m.codcaderno = c.codcaderno
 						WHERE m.ativo = 'S' 
-						ORDER BY m.dtalteracao DESC,
-						m.hralteracao DESC";
+						ORDER BY m.dtalteracao DESC";
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
 
@@ -72,9 +71,9 @@
 		public function insertMateria($user, $aDados){
 
 			$aDados->oMateria->coduser = $user;
-			$aDados->oMateria->palavras = countPalavras($aDados->oMateria->conteudo);		
+			$aDados->oMateria->dtalteracao = date('Y-m-d H-i-s');
 
-			$sSet = buildSet($aDados);		
+			$sSet = buildSet($aDados);
 			
 			$this->insertData($this->sTable, $sSet);
 
@@ -83,27 +82,21 @@
 		public function updateMateria($user, $aDados){
 
 			$aDados->oMateria->palavras = countPalavras($aDados->oMateria->conteudo);		
-			$aDados->oMateria->conexoes = self::getConexoes($user, $aDados->oMateria->conteudo);		
+			$aDados->oMateria->conexoes = self::getConexoes($user, $aDados->oMateria->conteudo);	
+			$aDados->oMateria->dtalteracao = date('Y-m-d H-i-s');	
 
 			$sSet = buildSet($aDados);
 			$sWhere = "WHERE codmateria = '" . $aDados->oMateria->codmateria . "' AND coduser = '$user' ";
 			
 			$this->updateData($this->sTable, $sWhere, $sSet);
 
-		}	
+		}
 
-		public function getTopicosByCaderno($user, $codcaderno){	
-
-			$this->sFields = 'm.nome, LEFT(c.nomecaderno, 1) as leftcaderno';
-
-			$this->sTable = 'materias m';
-
-			$sWhere = "INNER JOIN cadernos c
-						ON m.codcaderno = c.codcaderno
-						WHERE m.codcaderno = '$codcaderno'
-						AND m.ativo = 'S' 
-						ORDER BY m.dtalteracao DESC,
-						m.hralteracao DESC";
+		public function getMateriasByCaderno($user, $codcaderno){	
+			
+			$sWhere = "WHERE codcaderno = '$codcaderno'
+						AND ativo = 'S' 
+						ORDER BY dtalteracao DESC";
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
 

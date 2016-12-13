@@ -2,7 +2,7 @@
     <div ng-controller="cadernoController">
 
 
-<button class="btn red col-md-1 right"  ng-if="topico.codtopico" ng-click="deleteMateria(topico.codtopico)"><i class="fa fa-trash-o"></i> Deletar</button>
+<button class="btn red col-md-1 right"  ng-if="materia.codmateria" ng-click="deleteMateria(materia.codmateria)"><i class="fa fa-trash-o"></i> Deletar</button>
 
 <div class="section col-md-6 col-md-offset-3">
   <h5>Matéria</h5>
@@ -13,52 +13,51 @@
 
     <div class='form-group'>   
       <label>Caderno</label>
-          <select class='form-control'  ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="topico.codcaderno">
+          <select class='form-control'  ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="materia.codcaderno">
           <option value="">Selecione o caderno</option>
       </select>
     </div>
 
     <div class='form-group'>   
       <label>Semestre</label>
-          <select class='form-control'  ng-options="semestre as semestre for semestre in aSemestres" ng-model="topico.semestre">
+          <select class='form-control'  ng-options="semestre as semestre for semestre in aSemestres" ng-model="materia.semestre">
           <option value="">Selecione o semestre</option>
       </select>
     </div>
 
     <div class='form-group'>   
       <label>Ano</label>
-          <select class='form-control' ng-options="ano as ano for ano in aAnos" ng-model="topico.ano">
+          <select class='form-control' ng-options="ano as ano for ano in aAnos" ng-model="materia.ano">
           <option value="">Selecione o ano</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label>Tópico</label>
-      <input type="text" ng-model="topico.nome"  class="form-control">
+      <label>Matéria</label>
+      <input type="text" ng-model="materia.nome"  class="form-control">
     </div>
 
     <div class="form-group">
       <label>Professor</label>
-      <input type="text" ng-model="topico.professor"  class="form-control">
+      <input type="text" ng-model="materia.professor"  class="form-control">
     </div>
 
 
     <div class="form-group">
       <label>Local</label>
-      <input type="text" ng-model="topico.local"  class="form-control">
+      <input type="text" ng-model="materia.local"  class="form-control">
     </div>
 
     <div class="form-group">
       <label>Prioridade</label>
-      <input type="text" ng-model="topico.prioridade"  class="form-control">
+      <input type="text" ng-model="materia.prioridade"  class="form-control">
     </div>
 
  
     <label>Cor</label>
      <div class="panel panel-default center">
-      <div class="alert alert-{{tema}} col-md-2 clickable" role="alert" ng-repeat="tema in paineisTema" ng-click="topico.tema = tema" onclick="$( 'div' ).removeClass( 'active' ); $(this).addClass( 'active' );" >
+      <div class="alert alert-{{tema}} col-md-2 clickable" role="alert" ng-repeat="tema in paineisTema" ng-click="materia.tema = tema" onclick="$( 'div' ).removeClass( 'active' ); $(this).addClass( 'active' );" >
         <p>
-          <!-- <input name="group1" type="radio" id="{{tema}}" ng-click="topico.tema = tema" /> -->
           <label for="{{tema}}"></label>
         </p>  
       </div>
@@ -66,14 +65,14 @@
 
     <div class="form-group" ng-hide="true">
       <label>Tema</label>
-      <input type="text" ng-model="topico.tema"  class="form-control">
+      <input type="text" ng-model="materia.tema"  class="form-control">
     </div>
 
     </form>   
   </div>
 
   <div class="panel-footer text-center">               
-      <button ng-click="checarCampos(topico)" class="btn digitalcolor"><i class="fa fa-floppy-o"></i></button>    
+      <button ng-click="checarCamposMateria(materia)" class="btn digitalcolor"><i class="fa fa-floppy-o"></i></button>    
       <button ng-click="goRota('/Materias')" class="btn">Voltar</button>   
   </div>
 

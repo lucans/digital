@@ -28,11 +28,11 @@
 
   <hr />
 
-    <div class="collection with-header" ng-init="getTopicosByCaderno(caderno.codcaderno)">
+    <div class="collection with-header" ng-init="getMateriasByCaderno(caderno.codcaderno)">
       <li class="collection-header">Matérias de {{caderno.nomecaderno}}</li>
-      <div ng-repeat="topico in topicosAnos" class="collection-item">  
-        <a href="javascript:void(0)" ng-click="getOneTopico(topico.codtopico, '/NovoTopico')">{{topico.nome}}</a>
-        <i class="fa fa-pencil clickable right" ng-click="getOneTopico(topico.codtopico, '/NovoTopico')"></i>   
+      <div ng-repeat="materia in materias" class="collection-item">  
+        <a href="javascript:void(0)" ng-click="getOneMateria(materia.codmateria, true)">{{topico.nome}}</a>
+        <i class="fa fa-pencil clickable right" ng-click="getOneMateria(materia.codmateria, true)"></i>   
       </div>
     </div>
 

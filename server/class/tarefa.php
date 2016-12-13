@@ -4,32 +4,30 @@
 		public $sTable = 'tarefas';
 		public $sFields = '';
 
-		public function getTarefas($caderno){
+		public function getTarefas($user, $caderno){
 
 			$sWhere = "WHERE codcaderno = '$caderno'";
 			$aTarefas = $this->getData($this->sTable, $sWhere, $this->sFields);
 			echo json_encode($aTarefas);
 
 		}
-		
-		// public function deleteData($user, $aDados){
+	
+		public function updateTarefa($user, $aDados){
 
-		// 	$sSet = buildSet($aDados);
-		// 	$sWhere = "WHERE codcaderno = '" . $aDados->oCaderno->codcaderno . "' AND coduser = '$user' ";
+			$sWhere = "WHERE codtarefa = '" . $aDados->oTarefa->codtarefa . "' ";
+			$this->switchTarefa($this->sTable, $sWhere);		
+
+			echo json_encode(array('msg' => 'true'));		
+
+		}
+
+		public function insertTarefa($user, $aDados){
+			die(print_r($aDados));
+			$sSet = buildSet($aDados);		
 			
-		// 	$this->updateData($this->sTable, $sWhere, $sSet);
+			$this->insertData($this->sTable, $sSet);
 
-		// }	
-
-		// public function insertCaderno($user, $aDados){
-
-		// 	$aDados->oCaderno->coduser = $user;
-
-		// 	$sSet = buildSet($aDados);		
-			
-		// 	$this->insertData($this->sTable, $sSet);
-
-		// }	
+		}	
 
 
 

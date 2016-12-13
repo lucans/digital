@@ -12,7 +12,7 @@
       <br /><br />
       
     <div class='form-group' ng-init="getCadernos()" ng-show="selectCaderno">         
-          <select class='form-control' ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="caderno.codcaderno" ng-change="getTopicosByCaderno(caderno.codcaderno)"></select>
+          <select class='form-control' ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="caderno.codcaderno" ng-change="getMateriasByCaderno(caderno.codcaderno)"></select>
     </div>
      
       <div class="panel panel-{{materia.tema}}" style="cursor: pointer;" ng-repeat="materia in materias" ng-click="getOneMateria(materia.codmateria);">

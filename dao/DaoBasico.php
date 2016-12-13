@@ -60,5 +60,13 @@
 			
 		}
 
+		public function switchTarefa($sTable, $sWhere){
+
+			$sQuery = "UPDATE $sTable SET valor = IF(valor = '1', '0', '1') $sWhere";			
+			mysqli_query($this->link, $sQuery); 
+			unset($sWhere);
+			
+		}
+
 	}
 ?>
