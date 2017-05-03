@@ -7836,7 +7836,7 @@ small {
 }
 
 .card .card-content {
-  padding: 20px;
+  padding: 10px;
   border-radius: 0 0 2px 2px;
 }
 
@@ -7851,7 +7851,7 @@ small {
 
 .card .card-action {
   border-top: 1px solid rgba(160, 160, 160, 0.2);
-  padding: 30px;
+  padding: 10px;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
@@ -8532,7 +8532,7 @@ a.waves-effect .waves-ripple {
 
 .collapsible-body p {
   margin: 0;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .side-nav .collapsible {
@@ -9790,7 +9790,7 @@ select {
 
 .side-nav {
   position: fixed;
-  /*width: 270px;*/
+  width: 270px;
   left: -105%;
   top: 0;
   margin: 0;
@@ -9878,14 +9878,14 @@ select {
 }
 
 #sidenav-overlay {
-  position: fixed;
-  top: 0;
+  /*position: fixed;*/
+ /* top: 0;
   left: 0;
   right: 0;
   height: 120vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 997;
-  will-change: opacity;
+  will-change: opacity;*/
 }
 
 /*

@@ -9,7 +9,17 @@
 		public function getCadernos($user){
 
 			$sWhere = "WHERE coduser = '$user'" . $this->sAtivo;
-			$aCadernos = $this->getData($this->sTable, $sWhere, $this->sFields);
+			$cadernos = $this->getData($this->sTable, $sWhere, $this->sFields);
+
+			$Materia = new Materia();
+			
+			$aCadernos = array();
+
+			foreach ($cadernos as $key => $caderno) {
+				$caderno['materias'] = $Materia->getMateriasByCaderno($caderno['codcaderno']);
+				array_push($aCadernos, $caderno);
+			}
+
 			echo json_encode($aCadernos);
 
 		}
@@ -31,7 +41,7 @@
 
 		}	
 
-		public function insertCaderno($user, $aDados){
+		public function insertCaderno($user, $q, $aDados){
 
 			$aDados->oCaderno->coduser = $user;
 

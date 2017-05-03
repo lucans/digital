@@ -6,6 +6,16 @@ body {
 footer {
 	margin-top: 20px;
 }
+
+.side-nav li{
+	padding: 0px;
+}
+
+nav a.button-collapse{
+	display: initial;
+	margin-left: 10px;
+}
+
 .ta-editor {
     min-height: 300px;
     height: auto;
@@ -55,3 +65,12 @@ footer {
 
 textarea.ta-bind {
 	width: 100%;
+}
+
+
+.btn-group,
+.btn-group-vertical {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}

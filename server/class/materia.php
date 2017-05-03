@@ -92,7 +92,7 @@
 
 		}
 
-		public function getMateriasByCaderno($user, $codcaderno){	
+		public function getMateriasByCaderno($codcaderno){	
 			
 			$sWhere = "WHERE codcaderno = '$codcaderno'
 						AND ativo = 'S' 
@@ -100,8 +100,8 @@
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
 
-			echo json_encode($aMaterias);
-
+			return $aMaterias;
+			
 		}
 
 

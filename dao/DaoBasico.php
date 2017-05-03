@@ -9,13 +9,17 @@
 			$this->link = mysqli_connect("localhost","root","","db_digitalgit");
 		}
 
-		public function getData($sTable, $sWhere, $sFields){
+
+		public function getData($sTable, $sWhere, $sFields, $morre = ''){
 
 			$sFields = empty($sFields) ? '*' : $sFields;			
 
 			$sQuery = "SELECT $sFields FROM $sTable $sWhere";		
 
-			// die($sQuery);
+			if ($morre == 'morre') {				
+				die($sQuery);
+			}
+
 
 			$oStmt = mysqli_query($this->link, $sQuery); 
 

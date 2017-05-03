@@ -11,6 +11,7 @@ include('DaoBasico.php');
 require_once('../server/class/caderno.php');
 require_once('../server/class/materia.php');
 require_once('../server/class/tarefa.php');
+require_once('../server/class/user.php');
 
 
 include('daoCaderno.php');

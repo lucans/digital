@@ -1,86 +1,96 @@
-<ul ng-controller="loginController" id="slide-out" class="side-nav fixed col-sm-{{slideSize}}" ng-init="getMaterias(); resizeMenu(0, 11); toggleConteudo = true; $root.topico = {};">
-<div ng-controller="cadernoController">
-    <li disabled style="margin-top: 65px;"></li>
-
-    <div ng-hide="slide" class="right">
-      <button style="margin: 0 !important" class="btn col s6 waves-effect waves-light digitalcolor" ng-click="slide = !slide; resizeMenu(2, 10)"><i class="fa fa-bars"></i></button>  
-    </div>
-
-    <div ng-show="slide">
-      <button class="btn waves-effect waves-light teal lighten-1 col-sm-3" ng-click="selectCaderno = !selectCaderno"><i class="fa fa-filter"></i></button>
-      <button class="btn waves-effect waves-light digitalcolor col-sm-9" ng-click="slide = !slide; resizeMenu(0, 11)"><i class="fa fa-bars"></i></button>
-      <br /><br />
-      
-    <div class='form-group' ng-init="getCadernos()" ng-show="selectCaderno">         
-          <select class='form-control' ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="caderno.codcaderno" ng-change="getMateriasByCaderno(caderno.codcaderno)"></select>
-    </div>
-     
-      <div class="panel panel-{{materia.tema}}" style="cursor: pointer;" ng-repeat="materia in materias" ng-click="getOneMateria(materia.codmateria);">
-        <div class="panel-heading">
-        <span class="badge left" title="{{materia.nomecaderno}}">{{materia.leftcaderno}}</span>
-        <span style="margin-left:30px">{{materia.nome}}</span></div>          
-      </div> 
-
-    </div>
-
-</ul> 
-
-  <button ng-hide="materia.codmateria" class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovaMateria')"><i class="fa fa-plus"></i> Nova matéria</button>
-
-
-  <div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
-    <div class="panel-heading">
-
-    <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.materia = {};"></i></strong>
-
-    <i class="fa fa-refresh right" style="cursor: pointer;" ng-click="getOneMateria(materia.codmateria); resize(0, 11); showToast('Atualizado!')"></i> 
-
-      <ul class="col-md-{{sizeConteudo}}" >
+<button class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovaMateria')"><i class="fa fa-plus"></i> Nova matéria</button>
+  
+<div class="row">
+  <div class="col m12">
+    <div class="card">
+      <div class="card-content {{materia.tema}} white-text">
+        <span class="card-title">{{materia.nome}}</span>             
+            
+        <div class="palavras" ng-show="materia.palavras > 1">
+          <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>                
+        </div>
 
         <div class="chip" ng-repeat="conexao in conexoes" ng-show="conexao">
           <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
         </div>
 
-         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-
-            <div class="modal-content">
-
-              <div class="modal-body">
-                <div ng-model="conteudoConexao">{{conteudoConexao}}</div>
-              </div>
-
-              <div class="modal-body" ng-hide="conteudoConexao">
-                <div>Esse caderno ainda não possui conteúdo.</div>            
-              </div>
-
-            </div>
-          </div>
-        </div> 
-
-        <div class="palavras" ng-show="materia.palavras > 1">
-          <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>      
-        </div>
-      </ul>   
+      </div>      
 
     </div>
   </div>
-
-  <div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
-      <div class="panel panel-{{materia.tema}}">        
-          <div class="panel-heading">
-              <h2 class="panel-title">{{materia.nome}}                          
-                <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(materia)"><i class="fa fa-floppy-o"></i></button>                                  
-              </h2>
-          </div>
-
-          <div class="panel-body">   
-            <div class="panel-body" text-angular ng-model="materia.conteudo"></div>
-          </div> 
-      </div>    
-  </div>
-
 </div>
+
+<div class="row">
+  <div class="col m12">
+    <div class="card">
+      <div class="card-content white-text">              
+
+        <div text-angular class="black-text" ng-model="materia.conteudo" ng-blur="checarCamposMateria(materia)"></div>
+
+      </div>
+      <div class="card-action">        
+        <a href="" class="btn waves-effect waves-light  "><i class="fa fa-refresh" ng-click="getOneMateria(materia.codmateria); showToast('Atualizado!')"></i></a>
+        <a href="" class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCamposMateria(materia)"><i class="fa fa-floppy-o"></i></a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="panel col-md-12">
+  <div class="panel-heading">
+
+  <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.materia = {};"></i></strong>
+
+  
+
+    <ul class="col-md-12">
+
+      <div class="chip" ng-repeat="conexao in conexoes" ng-show="conexao">
+        <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
+      </div>
+
+       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+
+          <div class="modal-content">
+
+            <div class="modal-body">
+              <div ng-model="conteudoConexao">{{conteudoConexao}}</div>
+            </div>
+
+            <div class="modal-body" ng-hide="conteudoConexao">
+              <div>Esse caderno ainda não possui conteúdo.</div>            
+            </div>
+
+          </div>
+        </div>
+      </div> 
+
+      <div class="palavras" ng-show="materia.palavras > 1">
+        <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>      
+      </div>
+    </ul>   
+
+  </div>
+</div>
+
+<div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
+    <div class="panel panel-{{materia.tema}}">        
+        <div class="panel-heading">
+            <h2 class="panel-title">{{materia.nome}}                          
+              <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(materia)"><i class="fa fa-floppy-o"></i></button>                                  
+            </h2>
+        </div>
+
+        <div class="panel-body">   
+          <div class="panel-body" text-angular ng-model="materia.conteudo"></div>
+        </div> 
+    </div>    
+</div>
+
+</div> -->
 
 <style type="text/css">
   .panel {
