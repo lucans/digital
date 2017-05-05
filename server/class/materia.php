@@ -62,7 +62,12 @@
 						WHERE m.ativo = 'S' 
 						ORDER BY m.dtalteracao DESC";
 
+
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
+
+			foreach ($aMaterias as $key => $value) {
+				$aMaterias[$key]['teste'] = explode(',', $value['conexoes']); 
+			}
 
 			echo json_encode($aMaterias);
 		}
@@ -79,7 +84,9 @@
 
 		}
 
-		public function updateMateria($user, $aDados){
+		public function updateMateria($user, $q, $aDados){
+
+			// echo "<pre>"; print_r($aDados); die();
 
 			$aDados->oMateria->palavras = countPalavras($aDados->oMateria->conteudo);		
 			$aDados->oMateria->conexoes = self::getConexoes($user, $aDados->oMateria->conteudo);	
@@ -109,8 +116,11 @@
 
 			$sWhere = "WHERE codmateria = '$codmateria' AND coduser = '$user' ";
 
-			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
-			echo json_encode($aMaterias);
+			$aMateria = $this->getData($this->sTable, $sWhere, $this->sFields);
+			
+			$aMateria[0]['conexoes'] = explode(',', $aMateria[0]['conexoes']); 			
+
+			echo json_encode($aMateria);
 
 		}		
 

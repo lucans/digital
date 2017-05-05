@@ -10,8 +10,8 @@
           <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>                
         </div>
 
-        <div class="chip" ng-repeat="conexao in conexoes" ng-show="conexao">
-          <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
+        <div class="chip" ng-repeat="conexao in materia.conexoes" ng-if="materia.conexoes != ''">
+          <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>                    
         </div>
 
       </div>      
@@ -23,81 +23,13 @@
 <div class="row">
   <div class="col m12">
     <div class="card">
-      <div class="card-content white-text">              
-
+      <div class="card-content white-text">
         <div text-angular class="black-text" ng-model="materia.conteudo" ng-blur="checarCamposMateria(materia)"></div>
-
       </div>
       <div class="card-action">        
         <a href="" class="btn waves-effect waves-light  "><i class="fa fa-refresh" ng-click="getOneMateria(materia.codmateria); showToast('Atualizado!')"></i></a>
         <a href="" class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCamposMateria(materia)"><i class="fa fa-floppy-o"></i></a>
-      </div>
-      
+      </div>    
     </div>
   </div>
 </div>
-
-<!-- 
-<div class="panel col-md-12">
-  <div class="panel-heading">
-
-  <strong><i class="fa fa-times clickable right" title="Fechar" ng-click="$root.materia = {};"></i></strong>
-
-  
-
-    <ul class="col-md-12">
-
-      <div class="chip" ng-repeat="conexao in conexoes" ng-show="conexao">
-        <i class="fa fa-link"></i><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="openModalConexao(conexao)"> {{conexao}}</a>      
-      </div>
-
-       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-
-          <div class="modal-content">
-
-            <div class="modal-body">
-              <div ng-model="conteudoConexao">{{conteudoConexao}}</div>
-            </div>
-
-            <div class="modal-body" ng-hide="conteudoConexao">
-              <div>Esse caderno ainda não possui conteúdo.</div>            
-            </div>
-
-          </div>
-        </div>
-      </div> 
-
-      <div class="palavras" ng-show="materia.palavras > 1">
-        <a href="javascript:void(0)">{{materia.palavras}} Palavras</a>      
-      </div>
-    </ul>   
-
-  </div>
-</div>
-
-<div class="panel col-md-{{sizeConteudo}} right" ng-if="materia.codmateria">
-    <div class="panel panel-{{materia.tema}}">        
-        <div class="panel-heading">
-            <h2 class="panel-title">{{materia.nome}}                          
-              <button class="btn waves-effect waves-light digitalcolor right" title="Salvar" ng-click="checarCampos(materia)"><i class="fa fa-floppy-o"></i></button>                                  
-            </h2>
-        </div>
-
-        <div class="panel-body">   
-          <div class="panel-body" text-angular ng-model="materia.conteudo"></div>
-        </div> 
-    </div>    
-</div>
-
-</div> -->
-
-<style type="text/css">
-  .panel {
-    border-radius:0px !important; 
-  }
-  .panel-heading {
-    border-radius:0px !important; 
-  }
-
-</style>

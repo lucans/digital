@@ -3,10 +3,12 @@
 
 		private $link;
 
-		public function __construct(){
-			// $this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
-			// $this->link = mysqli_connect('www.lucans.com.br','lucas','meupenis','db_lucas');
-			$this->link = mysqli_connect("localhost","root","","db_digitalgit");
+		public function __construct(){			
+			if ($_SERVER['DOCUMENT_ROOT'] == 'C:/Users/Lucas/Documents/GitHub') {
+				$this->link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+			} else {
+				$this->link = mysqli_connect("localhost","root","","db_digitalgit");
+			}
 		}
 
 
@@ -47,10 +49,15 @@
 		}		
 
 
-		public function updateData($sTable, $sWhere, $sSet){
+		public function updateData($sTable, $sWhere, $sSet, $morre = ''){
 
 			$sQuery = "UPDATE $sTable $sSet $sWhere";
 
+
+			if ($morre == 'morre') {				
+				die($sQuery);
+			}
+			
 			mysqli_query($this->link, $sQuery); 
 			unset($sWhere);
 			

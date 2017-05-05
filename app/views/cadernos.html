@@ -1,60 +1,37 @@
 <div ng-controller="loginController">
 
-<button class="btn digitalcolor col s2 right" ng-click="$root.caderno = {}; newCaderno = true"><i class="fa fa-plus"></i> Novo caderno</button>
+  <button class="btn digitalcolor col s2 right" ng-click="$root.caderno = {}; newCaderno = true"><i class="fa fa-plus"></i> Novo caderno</button>
 
-<div class="row">
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <ul class="collapsible popout" data-collapsible="accordion" ng-init="getCadernos()">
+        <li ng-repeat="caderno in cadernos">
+          <div class="collapsible-header grey darken-4 white-text">
+            <b ng-bind="caderno.nomecaderno"></b>          
+            <i class="fa fa-trash-o right" ng-click="deleteCaderno(caderno.codcaderno)"></i>
+          </div>
+          <div class="collapsible-body" ng-repeat="materia in caderno.materias"><p class="{{materia.tema}} lighten-4" ng-bind="materia.nome"></p></div>
+        </li>  
+      </ul>
+    </div>
 
-  <div class="col s6 offset-s3">
-    <ul class="collapsible popout" data-collapsible="accordion" ng-init="getCadernos()">
-      <li ng-repeat="caderno in cadernos">
-        <div class="collapsible-header grey darken-4 white-text">
-          <b ng-bind="caderno.nomecaderno"></b>
-          <!-- <i class="fa fa-edit right" ng-click="getOneCaderno(caderno.codcaderno); changeNewCaderno('true')"></i> -->
-          <i class="fa fa-trash-o right" ng-click="deleteCaderno(caderno.codcaderno)"></i>
+    <div class="col s3" ng-show="newCaderno">
+      <div class="card">
+        <div class="card-content">
+          <div class="form-group" ng-hide="true">
+            <label>Codigo Caderno</label>
+            <input type="text" ng-model="caderno.codcaderno" class="form-control">   
+          </div>
+          <div class="form-group">
+            <label>Nome do Caderno</label>
+            <input type="text" ng-model="caderno.nomecaderno" class="form-control">
+          </div>
         </div>
-        <div class="collapsible-body" ng-repeat="materia in caderno.materias"><p ng-bind="materia.nome"></p></div>
-      </li>  
-    </ul>
-  </div>
-
-  <div class="col s3" ng-show="newCaderno">
-    <div class="card">
-      <div class="card-content">
-        <div class="form-group" ng-hide="true">
-          <label>Codigo Caderno</label>
-          <input type="text" ng-model="caderno.codcaderno" class="form-control">   
-        </div>
-        <div class="form-group">
-          <label>Nome do Caderno</label>
-          <input type="text" ng-model="caderno.nomecaderno" class="form-control">
+        <div class="card-action">
+          <button class="btn digitalcolor" ng-click="checarCamposCaderno(caderno); newCaderno = false"><i class="fa fa-floppy-o"></i> Salvar</button>       
         </div>
       </div>
-      <div class="card-action">
-        <button class="btn digitalcolor" ng-click="checarCamposCaderno(caderno); newCaderno = false"><i class="fa fa-floppy-o"></i> Salvar</button>   
-        <!-- <button class="btn red" ng-if="caderno.codcaderno" ng-click="deleteCaderno(caderno.codcaderno)"><i class="fa fa-trash-o"></i> Deletar</button>           -->
-      </div>
     </div>
+    
   </div>
-
 </div>
-
-</div>
-
-
-
-<!-- 
-
-<div ng-controller="loginController">
-  <div class="collection with-header col-md-6" ng-init="getCadernos()">
-    <li class="collection-header" ng-click="getCadernos()"><h5>Cadernos</h5></li>
-    <div class="collection-item blue-text clickable" ng-click="getOneCaderno(caderno.codcaderno, '/NovoCaderno')" 
-    	ng-repeat="caderno in cadernos" 
-    	onclick="$( 'div' ).removeClass( 'active white-text' ); $(this).addClass( 'active white-text' ); ">  
-
-      <b title="Editar Caderno">{{caderno.nomecaderno}}</b>  
-       	<div ng-click="showToast(' Tarefas atrasadas. ')" class="tarefas red right" ng-if="caderno.atrasadas > 0"><i class="fa fa-clock-o"></i> {{caderno.atrasadas}}</div>
-        <div ng-click="showToast(' Tarefas a fazer.   ')" class="tarefas blue darken-2 right" ng-if="caderno.atuais > 0"><i class="fa fa-pencil"></i> {{caderno.atuais}}</div>
-        <div ng-click="showToast(' Tarefas concluidas.')" class="tarefas green right" ng-if="caderno.concluidas > 0"><i class="fa fa-check"></i> {{caderno.concluidas}}</div>
-    </div>
-  </div>
-</div> -->

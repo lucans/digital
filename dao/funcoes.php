@@ -1,10 +1,10 @@
 <?php
 
-$link = mysqli_connect("localhost","root","","db_digitalgit");
-// $link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
-
-// mysqli_select_db($link, "db_lucas");
-
+if ($_SERVER['DOCUMENT_ROOT'] == 'C:/Users/Lucas/Documents/GitHub') {
+	$link = mysqli_connect('192.168.10.20','root','proxy','db_digitalgit');
+} else {
+	$link = mysqli_connect("localhost","root","","db_digitalgit");
+}
 
 
 include('DaoBasico.php');
@@ -14,20 +14,7 @@ require_once('../server/class/tarefa.php');
 require_once('../server/class/user.php');
 
 
-include('daoCaderno.php');
-include('daoTopico.php');
-include('daoUser.php');
-include('daoTarefa.php');
-
-include('loadUser.php');
-include('loadCaderno.php');
-include('loadTopico.php');
-
-include('loadTarefa.php');
-
 session_start();
-
-
 
 function countPalavras($conteudo){
 	
