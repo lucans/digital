@@ -1,6 +1,6 @@
 <button class="btn digitalcolor col-md-2 right" ng-click="goRota('/NovaMateria')"><i class="fa fa-plus"></i> Nova matéria</button>
   
-<div class="row">
+<div class="row" ng-show="materia.codmateria">
   <div class="col m12">
     <div class="card">
       <div class="card-content {{materia.tema}} white-text">
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" ng-show="materia.codmateria">
   <div class="col m12">
     <div class="card">
       <div class="card-content white-text">

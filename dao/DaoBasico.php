@@ -39,9 +39,13 @@
 		}		
 
 
-		public function insertData($sTable, $sSet){
+		public function insertData($sTable, $sSet, $morre = ''){
 
 			$sQuery = "INSERT INTO $sTable $sSet";
+			
+			if ($morre == 'morre') {				
+				die($sQuery);
+			}
 
 			mysqli_query($this->link, $sQuery); 
 			unset($sWhere);

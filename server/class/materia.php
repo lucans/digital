@@ -51,7 +51,7 @@
 
 
 
-		public function getMaterias($user){
+		public function getMaterias($coduser){
 
 			$this->sFields = 'm.nome, LEFT(c.nomecaderno, 1) as leftcaderno, m.*';
 
@@ -60,6 +60,7 @@
 			$sWhere = "INNER JOIN cadernos c
 						ON m.codcaderno = c.codcaderno
 						WHERE m.ativo = 'S' 
+						AND m.coduser = '$coduser'
 						ORDER BY m.dtalteracao DESC";
 
 
@@ -86,9 +87,7 @@
 
 		public function updateMateria($user, $q, $aDados){
 
-			// echo "<pre>"; print_r($aDados); die();
-
-			$aDados->oMateria->palavras = countPalavras($aDados->oMateria->conteudo);		
+			$aDados->oMateria->palavras = self::countPalavras($aDados->oMateria->conteudo);		
 			$aDados->oMateria->conexoes = self::getConexoes($user, $aDados->oMateria->conteudo);	
 			$aDados->oMateria->dtalteracao = date('Y-m-d H-i-s');	
 
@@ -98,6 +97,20 @@
 			$this->updateData($this->sTable, $sWhere, $sSet);
 
 		}
+
+
+		public function countPalavras($conteudo){
+			
+			if (count_chars($conteudo)) {
+				$conteudo = strip_tags($conteudo);
+				$aConteudo = explode(' ', $conteudo);
+				$iPalavras = count($aConteudo);
+				return $iPalavras;		
+			}
+
+			return $iPalavras;
+		}
+
 
 		public function getMateriasByCaderno($codcaderno){	
 			

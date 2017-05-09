@@ -24,73 +24,58 @@
       <link rel="stylesheet" href="app/resources/css/style.css" type="text/css">
   </head>
 
-  <style type="text/css">
-    header, main, footer {
-      padding-left: 240px;
-    }
-
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
-    }
-  </style>
-
   <body ng-app="digitalNote">
 
-    <ul id="dropdown1" class="dropdown-content" style="width: auto !important;" ng-controller="loginController">
-      <li><a href="#Config">Configurações</a></li>                     
-      <li><a href="#Login" ng-click="$root.user = {}; cleanUserSession();">Sair</a></li>   
-    </ul>
+  <ul id="dropdown1" class="dropdown-content" style="width: auto !important;" ng-controller="loginController">
+    <li><a href="#Config">Configurações</a></li>                     
+    <li><a href="#Login" ng-click="$root.user = {}; cleanUserSession();">Sair</a></li>   
+  </ul>
 
-    <nav>
-      <div class="nav-wrapper grey darken-4">
-        <a href="#!" class="brand-logo right">Digital Note</a>  
-            
-        <ul class="left hide-on-med-and-down">
-          <a href="#" data-activates="slide-out" ng-click="abrirMenu()" class="button-collapse">Matérias</a>
-          <li><a href="#Cadernos">Cadernos</a></li>  
-          <!-- <li><a href="#Materias">Matérias</a></li>   -->
-          <li><a href="#Tarefas" ng-click="$root.caderno = {}">Tarefas</a></li>                   
-          <li right class="active"><a href="#!" class="badge dropdown-button" data-activates="dropdown1" title="Configurar {{user.nome}}">{{user.inicial}}</a></li>           
-        </ul>
+  <nav>
+    <div class="nav-wrapper grey darken-4">
+      <a href="#!" class="brand-logo right">Digital Note</a>  
+          
+      <ul class="left hide-on-med-and-down">
+        <a href="#" data-activates="slide-out" ng-click="abrirMenu()" class="button-collapse">Matérias</a>
+        <li><a href="#Cadernos">Cadernos</a></li>  
+        <!-- <li><a href="#Materias">Matérias</a></li>   -->
+        <li><a href="#Tarefas" ng-click="$root.caderno = {}">Tarefas</a></li>                   
+        <li right class="active"><a href="#!" class="badge dropdown-button" data-activates="dropdown1" title="Configurar {{user.nome}}">{{user.inicial}}</a></li>           
+      </ul>
+    </div>
+  </nav>
+
+  <ul id="slide-out" class="side-nav" ng-controller="materiaController">
+    <li ng-init="getMaterias()">
+      <div class="userView">
+        <div class="background teal darken-3"><!-- <img ng-src="https://xtechfiles-us.s3.amazonaws.com/uploads/images/small/6d75e2d775f7398905f7c1ab0a420737.jpg" > --></div>
+        <a href=""><img class="circle" height="40px" ng-src="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png"></a>        
       </div>
-    </nav>
+    </li>
 
+    <li ng-repeat="materia in materias">
+      <a class="{{materia.tema}} darken-1 white-text" href="" ng-click="getOneMateria(materia.codmateria);">     
+        {{materia.nome}}      
+      </a>
+    </li>  
 
+  </ul>
 
-<ul id="slide-out" class="side-nav" ng-controller="materiaController">
-  <li ng-init="getMaterias()">
-    <div class="userView">
-      <div class="background teal darken-3"><!-- <img ng-src="https://xtechfiles-us.s3.amazonaws.com/uploads/images/small/6d75e2d775f7398905f7c1ab0a420737.jpg" > --></div>
-      <a href=""><img class="circle" height="40px" ng-src="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png"></a>        
-    </div>
-  </li>
+  <div class="main" id="main" style="margin:1%">
+    <div ng-view></div>
+  </div>
 
-  <li ng-repeat="materia in materias">
-    <a class="{{materia.tema}} darken-1 white-text" href="" ng-click="getOneMateria(materia.codmateria);">     
-      {{materia.nome}}      
-    </a>
-  </li>  
-
-</ul>
-
-<script type="text/javascript">
-  $(".dropdown-button").dropdown();
-  $(".button-collapse").sideNav();
-  $('.button-collapse').sideNav({
-    // menuWidth: 300, // Default is 300
-    edge: 'left', // Choose the horizontal origin
-    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    draggable: true // Choose whether you can drag to open on touch screens
-  }
-  );
-</script>
-
-
-    <div class="main" id="main" style="margin:1%">
-      <div ng-view></div>
-    </div>
+  <script type="text/javascript">
+    $(".dropdown-button").dropdown();
+    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav({
+      // menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+    );
+  </script>
 
   </body>
 </html>

@@ -47,7 +47,7 @@
 
 			$sSet = buildSet($aDados);		
 			
-			$this->insertData($this->sTable, $sSet);
+			$this->insertData($this->sTable, $sSet, "morre");
 
 		}	
 

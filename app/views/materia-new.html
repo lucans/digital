@@ -1,94 +1,76 @@
 <div ng-controller="loginController">
-    <div ng-controller="cadernoController">
+<div ng-controller="cadernoController">
+
+<!-- <button class="btn red col-md-1 right"  ng-if="materia.codmateria" ng-click="deleteMateria(materia.codmateria)"><i class="fa fa-trash-o"></i> Deletar</button> -->
+
+<div class="row">
+  <div class="col s12 m6 offset-m3">
+    <div class="card">
+
+      <div class="card-content">
+        <span class="card-title">Nova matéria</span>
+
+        <div class="row">
+            
+          <label>Caderno</label>
+          <select  class="browser-default" ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="materia.codcaderno">
+            <option value="" selected>Selecione um caderno</option>
+          </select>
+
+          <label>Ano</label>
+          <select  class="browser-default" ng-options="ano as ano for ano in aAnos" ng-model="materia.ano">
+            <option value="" selected>Selecione um ano</option>
+          </select>
+
+          <label>Semestre</label>
+          <select  class="browser-default" ng-options="semestre as semestre for semestre in aSemestres" ng-model="materia.semestre">
+            <option value="" selected>Selecione um semestre</option>
+          </select>
+
+          <label>Nome</label>      
+          <input type="text" ng-model="materia.nome" placeholder="Insira o nome da matéria">   
+
+          <label>Professor</label>      
+          <input type="text" ng-model="materia.professor" placeholder="Insira o nome do professor">
+          
+          <label>Local</label>      
+          <input type="text" ng-model="materia.local" placeholder="Insira o local">
+          
+          <label>Prioridade</label>      
+          <select class="browser-default" ng-model="materia.prioridade" class="materia.prioridade">
+            <option value="alta">Alta</option>
+            <option value="media" selected="">Média</option>
+            <option value="baixa">Baixa</option>
+          </select>
+          
+          <hr>
+
+          <label class="col s12">Tema</label>    
+          <div class="col s12 offset-s1">            
+            <div class="materia-tema red darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'red darken-2'}" ng-click="materia.tema = 'red darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema blue darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'blue darken-2'}" ng-click="materia.tema = 'blue darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema green darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'green darken-2'}" ng-click="materia.tema = 'green darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema brown darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'brown darken-2'}" ng-click="materia.tema = 'brown darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema yellow darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'yellow darken-2'}" ng-click="materia.tema = 'yellow darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema grey darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'grey darken-2'}" ng-click="materia.tema = 'grey darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema teal darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'teal darken-2'}" ng-click="materia.tema = 'teal darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema purple darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'purple darken-2'}" ng-click="materia.tema = 'purple darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema orange darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'orange darken-2'}" ng-click="materia.tema = 'orange darken-2'; showMateria(materia)"> </div>
+          </div>  
 
 
-<button class="btn red col-md-1 right"  ng-if="materia.codmateria" ng-click="deleteMateria(materia.codmateria)"><i class="fa fa-trash-o"></i> Deletar</button>
-
-<div class="section col-md-6 col-md-offset-3">
-  <h5>Matéria</h5>
-
-<div class="panel panel-default">
-<div class="panel-body" ng-init="getCadernos()">
-  <form class="form-vertical">
-
-    <div class='form-group'>   
-      <label>Caderno</label>
-          <select class='form-control'  ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="materia.codcaderno">
-          <option value="">Selecione o caderno</option>
-      </select>
-    </div>
-
-    <div class='form-group'>   
-      <label>Semestre</label>
-          <select class='form-control'  ng-options="semestre as semestre for semestre in aSemestres" ng-model="materia.semestre">
-          <option value="">Selecione o semestre</option>
-      </select>
-    </div>
-
-    <div class='form-group'>   
-      <label>Ano</label>
-          <select class='form-control' ng-options="ano as ano for ano in aAnos" ng-model="materia.ano">
-          <option value="">Selecione o ano</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Matéria</label>
-      <input type="text" ng-model="materia.nome"  class="form-control">
-    </div>
-
-    <div class="form-group">
-      <label>Professor</label>
-      <input type="text" ng-model="materia.professor"  class="form-control">
-    </div>
-
-
-    <div class="form-group">
-      <label>Local</label>
-      <input type="text" ng-model="materia.local"  class="form-control">
-    </div>
-
-    <div class="form-group">
-      <label>Prioridade</label>
-      <input type="text" ng-model="materia.prioridade"  class="form-control">
-    </div>
-
- 
-    <label>Cor</label>
-     <div class="panel panel-default center">
-      <div class="alert alert-{{tema}} col-md-2 clickable" role="alert" ng-repeat="tema in paineisTema" ng-click="materia.tema = tema" onclick="$( 'div' ).removeClass( 'active' ); $(this).addClass( 'active' );" >
-        <p>
-          <label for="{{tema}}"></label>
-        </p>  
+        </div>
       </div>
-    </div> 
 
-    <div class="form-group" ng-hide="true">
-      <label>Tema</label>
-      <input type="text" ng-model="materia.tema"  class="form-control">
+      <div class="card-action">
+        <button class="btn grey" ng-click="goRota('/Materias')">Voltar</button>   
+        <button class="btn right" ng-click="checarCamposMateria(materia)"><i class="fa fa-floppy-o"></i> Incluir</button>    
+      </div>
+
     </div>
-
-    </form>   
   </div>
-
-  <div class="panel-footer text-center">               
-      <button ng-click="checarCamposMateria(materia)" class="btn digitalcolor"><i class="fa fa-floppy-o"></i></button>    
-      <button ng-click="goRota('/Materias')" class="btn">Voltar</button>   
-  </div>
-
- </div>
 </div>
+        
 
-    </div>
-  </div>
-
-
-<style type="text/css">
-  .alert {
-    border: 3px solid transparent;
-    border-radius: 3px;
-    margin-bottom: 3px;
-    padding: 10px;
-    margin: 10px;
-}
-</style>
+</div>
+</div>

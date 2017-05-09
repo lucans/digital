@@ -15,7 +15,7 @@
 			if (is_array($aUser)) {		
 				if ($aUser[0]['password'] == $aDados->oUser->password) {
 
-					$_SESSION['user'] = loadUser($aDados->oUser->email);
+					$_SESSION['user'] = $this->loadUser($aDados->oUser->email);
 
 					echo json_encode($_SESSION['user']);
 				}		
@@ -26,7 +26,7 @@
 		function loadUser($email){
 
 			$sFields = "*, UPPER(LEFT(nome, 1)) as inicial, coduser, email, nome, semestre, ano";
-			$sWhere = "WHERE email = " . $email;
+			$sWhere = "WHERE email = '" . $email . "'";
 		
 			$aUser = $this->getData($this->sTable, $sWhere, $this->sFields);
 

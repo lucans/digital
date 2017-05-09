@@ -16,18 +16,6 @@ require_once('../server/class/user.php');
 
 session_start();
 
-function countPalavras($conteudo){
-	
-	if (count_chars($conteudo)) {
-		$conteudo = strip_tags($conteudo);
-		$aConteudo = explode(' ', $conteudo);
-		$iPalavras = count($aConteudo);
-		return $iPalavras;		
-	}
-
-	return $iPalavras;
-}
-
 function buildSet ($aDados) {
 
 	$sSet = 'SET ';

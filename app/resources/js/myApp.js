@@ -131,6 +131,9 @@
 
     app.controller("materiaController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http','toast','route', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http, toast, route) {  
 
+          $(document).ready(function() {
+    $('select').material_select();
+  });
 
       // Initialize collapse button
       $(".button-collapse").sideNav();
@@ -186,7 +189,12 @@
              $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe + "&q=" + codmateria).success(function(result){
                 $rootScope.materia = result[0];              
             });
+        };     
+
+        $scope.showMateria = function(materia){
+            console.log(materia);
         };      
+ 
 
 
         $scope.checarCamposMateria = function(materia){  
@@ -389,7 +397,7 @@
             $scope.func = 'getCadernos';
     
             $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe).success(function(result){
-                $scope.cadernos = result;               
+                $rootScope.cadernos = result;               
             });
 
         };        
