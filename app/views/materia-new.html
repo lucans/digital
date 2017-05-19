@@ -1,8 +1,6 @@
 <div ng-controller="loginController">
 <div ng-controller="cadernoController">
 
-<!-- <button class="btn red col-md-1 right"  ng-if="materia.codmateria" ng-click="deleteMateria(materia.codmateria)"><i class="fa fa-trash-o"></i> Deletar</button> -->
-
 <div class="row">
   <div class="col s12 m6 offset-m3">
     <div class="card">
@@ -12,32 +10,32 @@
 
         <div class="row">
             
-          <label>Caderno</label>
-          <select  class="browser-default" ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="materia.codcaderno">
+          <label ng-init="getCadernos()">Caderno</label>
+          <select  class="browser-default" ng-options="caderno.codcaderno as caderno.nomecaderno for caderno in cadernos" ng-model="materia_new.codcaderno">
             <option value="" selected>Selecione um caderno</option>
           </select>
 
           <label>Ano</label>
-          <select  class="browser-default" ng-options="ano as ano for ano in aAnos" ng-model="materia.ano">
+          <select  class="browser-default" ng-options="ano as ano for ano in aAnos" ng-model="materia_new.ano">
             <option value="" selected>Selecione um ano</option>
           </select>
 
           <label>Semestre</label>
-          <select  class="browser-default" ng-options="semestre as semestre for semestre in aSemestres" ng-model="materia.semestre">
+          <select  class="browser-default" ng-options="semestre as semestre for semestre in aSemestres" ng-model="materia_new.semestre">
             <option value="" selected>Selecione um semestre</option>
           </select>
 
           <label>Nome</label>      
-          <input type="text" ng-model="materia.nome" placeholder="Insira o nome da matéria">   
+          <input type="text" ng-model="materia_new.nome" placeholder="Insira o nome da matéria">   
 
           <label>Professor</label>      
-          <input type="text" ng-model="materia.professor" placeholder="Insira o nome do professor">
+          <input type="text" ng-model="materia_new.professor" placeholder="Insira o nome do professor">
           
           <label>Local</label>      
-          <input type="text" ng-model="materia.local" placeholder="Insira o local">
+          <input type="text" ng-model="materia_new.local" placeholder="Insira o local">
           
           <label>Prioridade</label>      
-          <select class="browser-default" ng-model="materia.prioridade" class="materia.prioridade">
+          <select class="browser-default" ng-model="materia_new.prioridade" class="materia_new.prioridade">
             <option value="alta">Alta</option>
             <option value="media" selected="">Média</option>
             <option value="baixa">Baixa</option>
@@ -47,15 +45,15 @@
 
           <label class="col s12">Tema</label>    
           <div class="col s12 offset-s1">            
-            <div class="materia-tema red darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'red darken-2'}" ng-click="materia.tema = 'red darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema blue darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'blue darken-2'}" ng-click="materia.tema = 'blue darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema green darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'green darken-2'}" ng-click="materia.tema = 'green darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema brown darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'brown darken-2'}" ng-click="materia.tema = 'brown darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema yellow darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'yellow darken-2'}" ng-click="materia.tema = 'yellow darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema grey darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'grey darken-2'}" ng-click="materia.tema = 'grey darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema teal darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'teal darken-2'}" ng-click="materia.tema = 'teal darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema purple darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'purple darken-2'}" ng-click="materia.tema = 'purple darken-2'; showMateria(materia)"> </div>
-            <div class="materia-tema orange darken-2 col s3" ng-class="{'tema-selected' : materia.tema == 'orange darken-2'}" ng-click="materia.tema = 'orange darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema red darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'red darken-2'}" ng-click="materia_new.tema = 'red darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema blue darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'blue darken-2'}" ng-click="materia_new.tema = 'blue darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema green darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'green darken-2'}" ng-click="materia_new.tema = 'green darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema brown darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'brown darken-2'}" ng-click="materia_new.tema = 'brown darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema yellow darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'yellow darken-2'}" ng-click="materia_new.tema = 'yellow darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema grey darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'grey darken-2'}" ng-click="materia_new.tema = 'grey darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema teal darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'teal darken-2'}" ng-click="materia_new.tema = 'teal darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema purple darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'purple darken-2'}" ng-click="materia_new.tema = 'purple darken-2'; showMateria(materia)"> </div>
+            <div class="materia-tema orange darken-2 col s3" ng-class="{'tema-selected' : materia_new.tema == 'orange darken-2'}" ng-click="materia_new.tema = 'orange darken-2'; showMateria(materia)"> </div>
           </div>  
 
 
@@ -64,7 +62,7 @@
 
       <div class="card-action">
         <button class="btn grey" ng-click="goRota('/Materias')">Voltar</button>   
-        <button class="btn right" ng-click="checarCamposMateria(materia)"><i class="fa fa-floppy-o"></i> Incluir</button>    
+        <button class="btn right" ng-click="checarCamposMateria(materia_new)"><i class="fa fa-floppy-o"></i> Incluir</button>    
       </div>
 
     </div>

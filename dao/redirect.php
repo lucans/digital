@@ -28,6 +28,10 @@ switch ($c) {
 		$Materia = new Materia();
 		$Materia->$func($coduser, $q, $aDados);
 		break;	
+	case 'Tarefa':	 
+		$Tarefa = new Tarefa();
+		$Tarefa->$func($coduser, $q, $aDados);
+		break;	
 	case 'User':
 		$User = new User();
 		$User->$func($coduser, $q, $aDados);

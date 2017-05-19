@@ -22,7 +22,7 @@
             }).
             when('/Tarefas', {
                 templateUrl: 'app/views/tarefas.html',
-                controller: 'materiaController'
+                controller: 'tarefasController'
             }).
             when('/NovoCaderno', {
                 templateUrl: 'app/views/caderno-new.html',
@@ -131,14 +131,11 @@
 
     app.controller("materiaController", ['$scope','RequestData','InputData','RequestDataOne','$location','$rootScope','$anchorScroll','$timeout','$http','toast','route', function ($scope, RequestData, InputData, RequestDataOne, $location, $rootScope, $anchorScroll, $timeout, $http, toast, route) {  
 
-          $(document).ready(function() {
-    $('select').material_select();
-  });
+        $(document).ready(function() {
+            $('select').material_select();
+        });
 
-      // Initialize collapse button
-      $(".button-collapse").sideNav();
-      // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-      //$('.collapsible').collapsible();
+        $(".button-collapse").sideNav();
         
         var classe = "Materia";
         
@@ -196,9 +193,8 @@
         };      
  
 
+        $scope.checarCamposMateria = function(materia){
 
-        $scope.checarCamposMateria = function(materia){  
-        
             if(!materia.codmateria) {
                 $scope.insertMateria(materia);
                 $scope.getMaterias();
@@ -303,9 +299,13 @@
 
     app.controller("tarefasController", ['$scope','$rootScope', '$timeout','$http','toast', 'route', function ($scope, $rootScope, $timeout, $http, toast, route) {
 
-        $scope.addTarefa = function(tarefa, codcaderno){         
+        var classe = "Tarefa";
 
-            console.log(tarefa, codcaderno);
+        $scope.goRota = function(rota){
+            route.goRota(rota);
+        }
+
+        $scope.addTarefa = function(tarefa, codcaderno){         
 
             tarefa.codcaderno = codcaderno;                     
             tarefa.valor = 'false';   
@@ -320,31 +320,43 @@
             $scope.deleteTarefa(oTarefa);           
         };
 
-        $scope.getTarefas = function(codcaderno){
-            $scope.p = 'getTarefas';
+        $scope.getTarefas = function(caderno){
+            $scope.goRota('/Tarefas');
+
+            $scope.func = 'getTarefas';
     
-            $http.get("dao/redirect.php?p=" + $scope.p + "&q=" + codcaderno).success(function(result){
-                $scope.tarefas = result;               
+            $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe + "&q=" + caderno.codcaderno).success(function(result){
+                $rootScope.tarefas = result;    
             });
+            $rootScope.caderno = caderno;          
+
         };
 
 
 
         $scope.updateTarefa = function(oTarefa){        
 
-            $scope.p = 'updateTarefa';
+            $scope.func = 'updateTarefa';
 
-            $http.post("dao/redirect.php?p=" + $scope.p, {
+            $http.post("dao/redirect.php?func=" + $scope.func + "&c=" + classe, {
                 oTarefa: oTarefa
             }).success(function(result){               
-                // route.goRota('/Materias');
-            });     
+                $scope.getTarefas($rootScope.caderno);               
+            });
 
         };  
 
-        $scope.deleteTarefa = function(oTarefa){        
-            InputData.send('deleteTarefa', oTarefa);   
-             toast.showToast("Tarefa deletada!");           
+        $scope.deleteTarefa = function(oTarefa){   
+
+            $scope.func = "deleteTarefa";
+
+            $http.post("dao/redirect.php?func=" + $scope.func + "&c=" + classe, {
+                oTarefa: oTarefa
+            }).success(function(result){               
+                $scope.getTarefas($rootScope.caderno);
+            });
+
+            toast.showToast("Tarefa deletada!");           
         };
 
         $scope.insertTarefa = function(oTarefa){
@@ -391,6 +403,19 @@
         $scope.goRota = function(rota){
             route.goRota(rota);
         }
+
+        $scope.getOneMateria = function(codmateria){
+
+            var classe = "Materia";
+
+            $scope.goRota('/Materias');
+
+            $scope.func = 'getOneMateria';
+
+             $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe + "&q=" + codmateria).success(function(result){
+                $rootScope.materia = result[0];              
+            });
+        };  
 
         $scope.getCadernos = function(){
 
@@ -439,11 +464,9 @@
             $scope.func = 'insertCaderno';
 
             $http.post("dao/redirect.php?func=" + $scope.func + "&c=" + classe, {
-
                 oCaderno: oCaderno
             }).success(function(result){
-                $scope.caderno = result;
-                route.goRota('/Cadernos');
+                $scope.caderno = result;                
             });
         };
 

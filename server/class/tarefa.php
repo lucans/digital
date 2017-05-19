@@ -4,15 +4,15 @@
 		public $sTable = 'tarefas';
 		public $sFields = '';
 
-		public function getTarefas($user, $caderno){
+		public function getTarefas($user, $q, $caderno){
 
-			$sWhere = "WHERE codcaderno = '$caderno'";
+			$sWhere = "WHERE codcaderno = '$q'";
 			$aTarefas = $this->getData($this->sTable, $sWhere, $this->sFields);
 			echo json_encode($aTarefas);
 
 		}
 	
-		public function updateTarefa($user, $aDados){
+		public function updateTarefa($user, $q, $aDados){
 
 			$sWhere = "WHERE codtarefa = '" . $aDados->oTarefa->codtarefa . "' ";
 			$this->switchTarefa($this->sTable, $sWhere);		
@@ -21,7 +21,7 @@
 
 		}
 
-		public function insertTarefa($user, $aDados){
+		public function insertTarefa($user, $q, $aDados){
 			die(print_r($aDados));
 			$sSet = buildSet($aDados);		
 			

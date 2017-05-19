@@ -1,10 +1,46 @@
 body {
-	background-image: url('../img/back.png');
+	/*background-image: url('../img/back.png');*/
 	font-family: "Roboto", sans-serif;
 }
 
 footer {
 	margin-top: 20px;
+}
+
+.d-green{
+	background-color: #0C8235;
+}
+.d-yellow{
+	background-color: #C8B88E;
+}
+.d-blue{
+	background-color: #1976D2;
+}
+.d-grey{
+	background-color: #1A1B1C;
+}
+.d-red{
+	background-color: #DC352B;
+}
+.btn i:hover{
+	transition: 1s;
+	 -ms-transform: rotate(360deg); /* IE 9 */
+    -webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+    transform: rotate(360deg);
+}
+
+.btn-sm{
+	height: 30px;
+	width: 30px;
+}
+.btn-sm i{
+	font-size: 18px;	
+	margin: -7px -7px;	
+}
+
+.btn-sm i:hover{
+	font-size: 18px;	
+	margin: -7px -7px;
 }
 
 .materia-tema{

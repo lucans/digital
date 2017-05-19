@@ -113,13 +113,16 @@
 
 
 		public function getMateriasByCaderno($codcaderno){	
-			
+
 			$sWhere = "WHERE codcaderno = '$codcaderno'
 						AND ativo = 'S' 
 						ORDER BY dtalteracao DESC";
 
 			$aMaterias = $this->getData($this->sTable, $sWhere, $this->sFields);
-
+			foreach ($aMaterias as $key => $value) {
+				$tema = explode(" ", $aMaterias[$key]['tema']);
+				$aMaterias[$key]['tema_main'] = $tema[0]; 
+			}
 			return $aMaterias;
 			
 		}
