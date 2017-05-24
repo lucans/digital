@@ -12,6 +12,7 @@ require_once('../server/class/caderno.php');
 require_once('../server/class/materia.php');
 require_once('../server/class/tarefa.php');
 require_once('../server/class/user.php');
+require_once('../server/class/session.php');
 
 
 session_start();

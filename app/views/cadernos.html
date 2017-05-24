@@ -35,7 +35,7 @@
     </div>
 
     <div class="row">
-      <div class="col s6 m4" ng-repeat="caderno in cadernos">
+      <div class="col s12 m4" ng-repeat="caderno in cadernos">
         <div class="card">
           <div class="card-content">
             <span class="card-title">{{caderno.nomecaderno}}</span>  
@@ -51,7 +51,7 @@
           </div>
           <div class="card-action">            
             <!-- <a class="btn d-blue" ng-click="newMateria(caderno)"><i class="fa fa-plus-square"></i> Matéria</a> -->
-            <a ng-controller="tarefasController" class="btn blue darken-2" title="Tarefas de {{caderno.nomecaderno}}" ng-click="getTarefas(caderno)"><i class="fa fa-thumb-tack"></i></a>
+            <a ng-controller="tarefasController" class="btn blue darken-2" title="Tarefas de {{caderno.nomecaderno}}" ng-click="getTarefas(caderno.codcaderno)"><i class="fa fa-thumb-tack"></i></a>
             <a class="btn btn-sm btn-disabled d-grey right" ng-click="deleteCaderno(caderno.codcaderno)"><i class="fa fa-trash-o"></i></a>
           </div>
         </div>

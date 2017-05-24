@@ -320,15 +320,17 @@
             $scope.deleteTarefa(oTarefa);           
         };
 
-        $scope.getTarefas = function(caderno){
+        $scope.getTarefas = function(codcaderno = 0){
+
             $scope.goRota('/Tarefas');
 
             $scope.func = 'getTarefas';
     
-            $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe + "&q=" + caderno.codcaderno).success(function(result){
+            $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe + "&q=" + codcaderno).success(function(result){
                 $rootScope.tarefas = result;    
             });
-            $rootScope.caderno = caderno;          
+
+            $rootScope.caderno = caderno; 
 
         };
 
@@ -361,13 +363,13 @@
 
         $scope.insertTarefa = function(oTarefa){
            
-            $scope.p = 'insertTarefa';
+            $scope.func = 'insertTarefa';
 
-            $http.post("dao/redirect.php?p=" + $scope.p, {
+            $http.post("dao/redirect.php?func=" + $scope.func + "&c=" + classe, {
                 oTarefa: oTarefa
-            }).success(function(result){                            
-                toast.showToast("Tarefa adicionada!");
-            });            
+            }).success(function(result){
+                toast.showToast("Tarefa adicionada!");                
+            });    
         };
 
         $scope.getTarefasAtrasadas = function(codcaderno){
@@ -500,12 +502,11 @@
 
             $http.get("dao/redirect.php?func=" + $scope.func + "&c=" + classe).success(function(result){
                 if (result != 'false') {
-                    $rs.user = result[0];         
+                    $rs.user = result[0];                             
                 } else {
                     route.goRota('/Login');      
                 }
             });
-
         };
 
         $scope.verificaUserSession();

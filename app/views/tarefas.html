@@ -1,5 +1,5 @@
 <div ng-controller="tarefasController"> 
-  <div class="row">
+  <div class="row" ng-init="getTarefas()">
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a class="btn-floating btn-large d-blue">
@@ -14,8 +14,9 @@
       </ul>
     </div>
 
+    <div class="row">    
       <div class="col s8 offset-s2" ng-show="newTarefa">
-        <div class="row">    
+        <div class="card">    
             <div class="card-content white"> 
                 <div class="row">
                   <input type="text" class="form-control" ng-model="tarefa.tarefa" placeholder="Nova tarefa">
@@ -26,26 +27,8 @@
                 </div>
             </div>    
         </div>
-      </div>
-
-      <div class="col s8 offset-s2">
-        <div class="card-content white">    
-        <span class="card-title">{{caderno.nomecaderno}}</span>
-            <div class="collection" ng-class="{'red lighten-5' : today > tarefa.prazo, 'green lighten-5' : tarefa.valor > 0, 'tarefaToday' : tarefa.prazo == today}" 
-            ng-repeat="tarefa in tarefas">
-              <form action="#">
-                <p style="padding:7px">   
-                  <i class="fa fa-times right clickable" ng-click="removeTarefa(tarefa)"></i>   
-                  <label ng-hide="true" for="{{tarefa.codtarefa}}">{{tarefa.codtarefa}}</label>
-                  <input type="checkbox" id="{{tarefa.tarefa}}" ng-model="tarefa.valor" ng-checked="{{tarefa.valor}}" ng-click="updateTarefa(tarefa)"/>
-                  <label class="left" for="{{tarefa.tarefa}}">{{tarefa.tarefa}}</label>
-                  <label class="right" for="{{tarefa.prazo}}">{{tarefa.prazo | date:'dd/MM/yyyy'}}</label>
-                </p>
-              </form>  
-            </div>  
         </div>
       </div>
-
 
     <div class="row">
       <div class="col s8 offset-s2">
@@ -67,7 +50,9 @@
 
           </div>
           <div class="card-action">                      
-            <a ng-controller="tarefasController" class="btn blue darken-2" title="Tarefas de {{caderno.nomecaderno}}" ng-click="getTarefas(caderno)"><i class="fa fa-thumb-tack"></i></a>
+            <a ng-controller="tarefasController" class="btn" title="Tarefas de {{caderno.nomecaderno}}" ng-click="getTarefas(caderno)" ng-class="{'red lighten-5' : today > tarefa.prazo, 'green lighten-5' : tarefa.valor > 0, 'tarefaToday' : tarefa.prazo == today}">
+              <i class="fa fa-thumb-tack"></i>
+            </a>
             <a class="btn btn-sm btn-disabled d-grey right" ng-click="deleteCaderno(caderno.codcaderno)"><i class="fa fa-trash-o"></i></a>
           </div>
         </div>

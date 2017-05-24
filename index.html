@@ -36,30 +36,30 @@
       <a href="#!" class="brand-logo right">Digital Note</a>  
           
       <ul class="left hide-on-med-and-down">
-        <a href="#" data-activates="slide-out" ng-click="abrirMenu()" class="button-collapse">Matérias</a>
+        <!-- <a href="#" data-activates="slide-out" ng-click="abrirMenu()" class="button-collapse">Matérias</a> -->
         <li><a href="#Cadernos">Cadernos</a></li>  
         <!-- <li><a href="#Materias">Matérias</a></li>   -->
-        <li><a href="#Tarefas" ng-click="$root.caderno = {}">Tarefas</a></li>                   
-        <li right class="active"><a href="#!" class="badge dropdown-button" data-activates="dropdown1" title="Configurar {{user.nome}}">{{user.inicial}}</a></li>           
+        <!-- <li><a href="#Tarefas" ng-click="$root.caderno = {}">Tarefas</a></li>                    -->
+        <li right class="active"><a href="#!" class="badge dropdown-button" data-activates="dropdown1" title="Configurar {{user.nome}}">{{rootScope.user.inicial}}</a></li>           
       </ul>
     </div>
   </nav>
 
-  <ul id="slide-out" class="side-nav" ng-controller="materiaController">
+<!--   <ul id="slide-out" class="side-nav" ng-controller="materiaController">
     <li ng-init="getMaterias()">
       <div class="userView">
-        <div class="background teal darken-3"><!-- <img ng-src="https://xtechfiles-us.s3.amazonaws.com/uploads/images/small/6d75e2d775f7398905f7c1ab0a420737.jpg" > --></div>
+        <div class="background teal darken-3">
+        <img ng-src="https://xtechfiles-us.s3.amazonaws.com/uploads/images/small/6d75e2d775f7398905f7c1ab0a420737.jpg" >          
+        </div>
         <a href=""><img class="circle" height="40px" ng-src="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46ad551392.png"></a>        
       </div>
     </li>
-
     <li ng-repeat="materia in materias">
       <a class="{{materia.tema}} darken-1 white-text" href="" ng-click="getOneMateria(materia.codmateria);">     
         {{materia.nome}}      
       </a>
     </li>  
-
-  </ul>
+  </ul> -->
 
   <div class="main" id="main" style="margin:1%">
     <div ng-view></div>
